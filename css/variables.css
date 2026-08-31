@@ -1,0 +1,66 @@
+/* Design Tokens extracted directly from Figma (Node 16887:7968) */
+:root {
+  /* Colors */
+  --color-bg: #FFFFFF;
+  --color-bg-alt: #F5F6FA;
+  --color-bg-dark: #0B0D18;
+  --color-bg-dark-card: #000000;
+  --color-footer-bg: #1F252B;
+
+  --color-text-primary: #1F252B;
+  --color-text-secondary: #555E68;
+  --color-text-muted: #8C95A0;
+  --color-text-light: #FFFFFF;
+  --color-text-light-muted: rgba(255, 255, 255, 0.72);
+  --color-text-flow: #8B9EC7;
+
+  --color-primary: #002D9C;
+  --color-primary-hover: #002580;
+  --color-primary-active: #001C66;
+
+  --color-border-light: #CFD5DB;
+  --color-border-card: #EEF1F6;
+  --blue-A300: #ABBDE0;
+  --color-border-dark: rgba(255, 255, 255, 0.10);
+
+  /* Gradients */
+  --gradient-hero-ambient: radial-gradient(94.93% 100% at 50% 100%, rgba(15, 98, 254, 0.30) 25%, rgba(81, 69, 229, 0.25) 45%, rgba(229, 46, 168, 0.10) 75%, rgba(255, 255, 255, 0.15) 100%), #FFF;
+  --gradient-btn-primary: radial-gradient(100% 100% at 50% 45%, rgba(15, 98, 254, 0.5) 0%, rgba(81, 69, 229, 0.35) 69%, rgba(229, 46, 168, 0.15) 100%), #002D9C;
+  --gradient-btn-primary-hover: radial-gradient(100% 100% at 50% 45%, rgba(30, 120, 255, 0.7) 0%, rgba(100, 85, 255, 0.5) 69%, rgba(255, 60, 190, 0.3) 100%), #0036B8;
+  --gradient-btn-primary-active: radial-gradient(100% 100% at 50% 45%, rgba(10, 80, 220, 0.5) 0%, rgba(70, 60, 200, 0.35) 69%, rgba(200, 40, 150, 0.15) 100%), #002275;
+
+  --gradient-number: linear-gradient(135deg, #C2E0FF 0%, #C2C2FF 49%, #EABFFF 100%);
+  --gradient-cta-card: linear-gradient(135deg, rgba(103, 60, 233, 0.12) 0%, rgba(41, 95, 204, 0.12) 100%), linear-gradient(135deg, #C2E0FF 0%, #C2C2FF 49%, #EABFFF 100%);
+  --gradient-cta-brand: linear-gradient(135deg, #4A3BE0 0%, #255ACC 100%);
+  --gradient-integration-bg: linear-gradient(180deg, #F5F6FA 0%, #FFFFFF 100%);
+  --gradient-use-cases-bg: linear-gradient(0deg, rgba(15, 98, 254, 0.20) 0%, rgba(81, 69, 229, 0.10) 35%, rgba(168, 46, 229, 0.05) 70%, rgba(229, 46, 168, 0.00) 100%), #0F111A;
+
+  /* Typography */
+  --font-primary: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Spline Sans Mono', 'SF Mono', Consolas, monospace;
+  --font-inter: 'Inter', sans-serif;
+
+  /* Layout */
+  --container-max-width: 1240px;
+  --container-padding: 24px;
+  --header-height: 72px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.08);
+  --shadow-primary-btn: none;
+  --shadow-primary-btn-hover: none;
+
+  /* Transitions */
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Radiuses */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+}

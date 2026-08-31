@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akaden – Agentic AI for Ellucian Integration Engineering</title>
+  <meta name="description" content="Akaden brings requirements, legacy code, APIs, specifications, pipelines, testing, deployment, and runtime validation into one guided engineering workspace.">
+  
+  <!-- Google Fonts: Poppins, Spline Sans Mono, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&family=Poppins:wght@400;500;600;700;800&family=Spline+Sans+Mono:wght@500;600&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Floating Island Header -->
+  <header class="site-header" id="header">
+    <div class="container header-inner">
+      <a href="#hero" class="brand-logo" aria-label="Akaden Home">Akaden</a>
+      
+      <nav class="nav-links desktop-nav" id="primaryNav" aria-label="Main Navigation">
+        <a href="#hero" class="nav-link">Product</a>
+        <a href="#use-cases" class="nav-link">Use cases</a>
+        <a href="#how-it-works" class="nav-link">How it works</a>
+        <a href="#integrations" class="nav-link">Capabilities</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="#cta" class="btn btn-primary btn-md">Get Akaden Now</a>
+        <button class="mobile-menu-toggle" aria-label="Open navigation menu" aria-controls="mobileDrawer" aria-expanded="false">
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Fullscreen Mobile/Tablet Navigation Drawer (Root Level - No CSS Transform Clipping) -->
+  <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+    <div class="mobile-drawer-header">
+      <a href="#hero" class="brand-logo mobile-drawer-logo" aria-label="Akaden Home">Akaden</a>
+      <button class="mobile-drawer-close" aria-label="Close navigation menu">
+        <span></span>
+      </button>
+    </div>
+    
+    <nav class="mobile-drawer-nav">
+      <a href="#hero" class="mobile-nav-link">Product</a>
+      <a href="#use-cases" class="mobile-nav-link">Use cases</a>
+      <a href="#how-it-works" class="mobile-nav-link">How it works</a>
+      <a href="#integrations" class="mobile-nav-link">Capabilities</a>
+    </nav>
+
+    <div class="mobile-drawer-actions">
+      <a href="#cta" class="btn btn-primary btn-lg mobile-drawer-cta">Get Akaden Now</a>
+    </div>
+  </div>
+
+  <main>
+    <!-- Hero Section (Scroll Parallax & Zoom Track) -->
+    <section class="hero-scroll-track" id="hero">
+      <div class="hero-sticky-container">
+        <div class="hero-black-overlay" aria-hidden="true"></div>
+        <img src="assets/hero-bg-art.svg" alt="" class="hero-bg-art" aria-hidden="true">
+        
+        <div class="hero-inner-container">
+          <div class="hero-content">
+            <h1 class="hero-title">Ellucian integrations, built with Agentic AI</h1>
+            <p class="hero-description">
+              Akaden brings requirements, legacy code, APIs, specifications, pipelines, testing, deployment, and runtime validation into one guided engineering workspace.
+            </p>
+            <div class="hero-buttons">
+              <a href="#cta" class="btn btn-primary btn-lg">Get Akaden Now</a>
+              <a href="#contact" class="btn btn-secondary btn-lg">Talk To Our Team</a>
+            </div>
+          </div>
+
+          <!-- Dark Tablet/Monitor Bezel Device Frame (Scroll Zoom from 50% to 100%) -->
+          <div class="hero-device-bezel">
+            <div class="hero-mockup-screen">
+              <img src="assets/hero-mockup.png" alt="Akaden engineering workspace UI preview" class="hero-mockup-img" width="872" height="398" loading="eager">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+        <!-- How It Works Section (Scroll-Driven 5 Steps) -->
+    <section class="section how-it-works-section" id="how-it-works">
+      <div class="how-it-works-sticky">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="section-title">5 steps to turn request into pipeline</h2>
+            <p class="section-subtitle">
+              Akaden combines integration development, AI assistance, environment access, testing, deployment, and operational tooling inside the same project workspace.
+            </p>
+          </div>
+
+          <div class="how-it-works-grid">
+            <!-- Steps List -->
+            <div class="steps-list">
+              <div class="steps-line-track" aria-hidden="true">
+                <div class="steps-line-progress">
+                  <svg class="steps-line-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M3 5L7 9L11 5" stroke="#ABBDE0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+              
+              <article class="step-card active" data-step="0" id="step-0">
+                <div class="step-card-mobile-img">
+                  <img src="assets/step-1.png" alt="Step 1: Start with real request" loading="lazy">
+                </div>
+                <div class="step-header">
+                  <span class="step-badge">01</span>
+                  <h3 class="step-title">Start with the real request</h3>
+                </div>
+                <p class="step-description">
+                  Bring in the business need, institutional context, and constraints. Akaden starts with what your team knows instead of asking a developer to begin from a blank prompt.
+                </p>
+              </article>
+
+              <article class="step-card" data-step="1" id="step-1">
+                <div class="step-card-mobile-img">
+                  <img src="assets/step-2.png" alt="Step 2: Build plan with right skills" loading="lazy">
+                </div>
+                <div class="step-header">
+                  <span class="step-badge">02</span>
+                  <h3 class="step-title">Build a plan with the right skills</h3>
+                </div>
+                <p class="step-description">
+                  Akaden automatically selects the planning and design skills the task needs. It applies established practices, explores the missing decisions, and asks the questions that make the plan complete.
+                </p>
+              </article>
+
+              <article class="step-card" data-step="2" id="step-2">
+                <div class="step-card-mobile-img">
+                  <img src="assets/step-3.png" alt="Step 3: Keep decision with team" loading="lazy">
+                </div>
+                <div class="step-header">
+                  <span class="step-badge">03</span>
+                  <h3 class="step-title">Keep the decision with your team</h3>
+                </div>
+                <p class="step-description">
+                  Your team edits and approves the plan. This is where business priorities, technical judgment, and institutional knowledge stay firmly in human hands.
+                </p>
+              </article>
+
+              <article class="step-card" data-step="3" id="step-3">
+                <div class="step-card-mobile-img">
+                  <img src="assets/step-4.png" alt="Step 4: Build from approved blueprint" loading="lazy">
+                </div>
+                <div class="step-header">
+                  <span class="step-badge">04</span>
+                  <h3 class="step-title">Build from an approved blueprint</h3>
+                </div>
+                <p class="step-description">
+                  Akaden brings pipeline-building skills to the approved plan, creating an implementation that developers can inspect, understand, and update.
+                </p>
+              </article>
+
+              <article class="step-card" data-step="4" id="step-4">
+                <div class="step-card-mobile-img">
+                  <img src="assets/step-5.png" alt="Step 5: Test, deploy, and learn" loading="lazy">
+                </div>
+                <div class="step-header">
+                  <span class="step-badge">05</span>
+                  <h3 class="step-title">Test, deploy, and learn</h3>
+                </div>
+                <p class="step-description">
+                  Set the runtime values, deploy to the right tenant, and validate the output against the agreed acceptance criteria. The next change starts from the same shared context.
+                </p>
+              </article>
+            </div>
+
+            <!-- Sticky Visual Mockup Column (Desktop) -->
+            <div class="steps-sticky-wrapper">
+              <div class="steps-visual-sticky">
+                <div class="step-visual-item active" data-visual="0">
+                  <img src="assets/step-1.png" alt="Step 1: Start with real request" width="600" height="340" loading="eager">
+                </div>
+                <div class="step-visual-item" data-visual="1">
+                  <img src="assets/step-2.png" alt="Step 2: Build plan with right skills" width="600" height="340" loading="lazy">
+                </div>
+                <div class="step-visual-item" data-visual="2">
+                  <img src="assets/step-3.png" alt="Step 3: Keep decision with team" width="600" height="340" loading="lazy">
+                </div>
+                <div class="step-visual-item" data-visual="3">
+                  <img src="assets/step-4.png" alt="Step 4: Build from approved blueprint" width="600" height="340" loading="lazy">
+                </div>
+                <div class="step-visual-item" data-visual="4">
+                  <img src="assets/step-5.png" alt="Step 5: Test, deploy, and learn" width="600" height="340" loading="lazy">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Use Cases Section (Dark Theme with Glow Background) -->
+    <section class="section use-cases-section" id="use-cases">
+      <img src="assets/use-cases-bg.png" alt="" class="use-cases-bg-art" aria-hidden="true">
+      <div class="container" style="position: relative; z-index: 1;">
+        <div class="section-head center">
+          <h2 class="section-title">See it in action</h2>
+          <p class="section-subtitle">
+            Watch Akaden handle three different integration challenges: building something new, modernizing a legacy implementation, and maintaining an existing pipeline.
+          </p>
+        </div>
+
+        <div class="video-grid">
+          <!-- Card 1 -->
+          <article class="video-card" tabindex="0" role="button" aria-label="Watch video: Build a new integration">
+            <div class="video-thumb-container">
+              <img src="assets/video-1.png" alt="Build a new integration thumbnail" class="video-thumb-img" width="386" height="218" loading="lazy">
+              <div class="video-play-btn" aria-hidden="true">
+                <img src="assets/play.svg" alt="Play">
+              </div>
+            </div>
+            <div class="video-body">
+              <h3 class="video-title">Build a new integration</h3>
+              <p class="video-text">
+                Start with business and technical requirements, develop the specification with AI, generate an editable pipeline, deploy it, and validate the running integration.
+              </p>
+              <div class="video-mini-flow">
+                Requirements → Specification → Pipeline → Run
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="video-card" tabindex="0" role="button" aria-label="Watch video: Modernize a legacy integration">
+            <div class="video-thumb-container">
+              <img src="assets/video-1.png" alt="Modernize a legacy integration thumbnail" class="video-thumb-img" width="386" height="218" loading="lazy">
+              <div class="video-play-btn" aria-hidden="true">
+                <img src="assets/play.svg" alt="Play">
+              </div>
+            </div>
+            <div class="video-body">
+              <h3 class="video-title">Modernize a legacy integration</h3>
+              <p class="video-text">
+                Bring existing implementation logic into Akaden, reconstruct how it works, replace legacy database access with supported API-driven patterns, and build the Data Connect implementation.
+              </p>
+              <div class="video-mini-flow">
+                Legacy code → Business logic → APIs → Data Connect
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="video-card" tabindex="0" role="button" aria-label="Watch video: Maintain an existing pipeline">
+            <div class="video-thumb-container">
+              <img src="assets/video-1.png" alt="Maintain an existing pipeline thumbnail" class="video-thumb-img" width="386" height="218" loading="lazy">
+              <div class="video-play-btn" aria-hidden="true">
+                <img src="assets/play.svg" alt="Play">
+              </div>
+            </div>
+            <div class="video-body">
+              <h3 class="video-title">Maintain an existing pipeline</h3>
+              <p class="video-text">
+                Import an existing pipeline, reconstruct undocumented behavior, reproduce reported issues, identify their causes, implement fixes, and validate the corrected output.
+              </p>
+              <div class="video-mini-flow">
+                Existing pipeline → Diagnose → Fix → Validate
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+        <!-- Outcomes Section (2x2 White Card Matrix) -->
+    <section class="section section-alt" id="outcomes">
+      <div class="container">
+        <div class="section-head center">
+          <h2 class="section-title">Less dependency on any one person. More delivery capacity.</h2>
+        </div>
+
+        <div class="outcomes-grid">
+          <!-- Outcome 1 -->
+          <article class="outcome-card">
+            <span class="outcome-number">01</span>
+            <div class="outcome-content">
+              <h3 class="outcome-title">New people ramp up in days, not months</h3>
+              <p class="outcome-description">
+                Requirements, source code, specifications, pipelines, and documentation stay connected inside the same workspace — not scattered across someone's inbox and memory.
+              </p>
+            </div>
+          </article>
+
+          <!-- Outcome 2 -->
+          <article class="outcome-card">
+            <span class="outcome-number">02</span>
+            <div class="outcome-content">
+              <h3 class="outcome-title">Institutional knowledge survives staff turnover</h3>
+              <p class="outcome-description">
+                Legacy code and existing pipelines get turned into documentation and reconstructed logic, so the next person doesn't start from zero when an expert leaves.
+              </p>
+            </div>
+          </article>
+
+          <!-- Outcome 3 -->
+          <article class="outcome-card">
+            <span class="outcome-number">03</span>
+            <div class="outcome-content">
+              <h3 class="outcome-title">Fewer production incidents from unreviewed changes</h3>
+              <p class="outcome-description">
+                Every agent-generated change is inspected, edited, applied, or discarded by your team before it reaches the target environment.
+              </p>
+            </div>
+          </article>
+
+          <!-- Outcome 4 -->
+          <article class="outcome-card">
+            <span class="outcome-number">04</span>
+            <div class="outcome-content">
+              <h3 class="outcome-title">Respond to new requests without growing headcount</h3>
+              <p class="outcome-description">
+                Specialized delivery skills take on the repeatable work, so a small team can take on more integration requests without a bigger backlog.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Integration Ecosystem Section -->
+    <section class="section integration-section" id="integrations">
+      <div class="container integration-container">
+        <h2 class="integration-title">Works with the systems<br>you already run</h2>
+
+        <div class="integration-grid">
+          <div class="integration-badge" tabindex="0">
+            <div class="integration-icon-wrap">
+              <img src="assets/data-connect.svg" alt="Ellucian Data Connect" width="64" height="40">
+            </div>
+            <span class="integration-name">Ellucian Data Connect</span>
+          </div>
+
+          <div class="integration-badge" tabindex="0">
+            <div class="integration-icon-wrap">
+              <img src="assets/ethos-apis.svg" alt="Ethos APIs" width="64" height="40">
+            </div>
+            <span class="integration-name">Ethos APIs</span>
+          </div>
+
+          <div class="integration-badge" tabindex="0">
+            <div class="integration-icon-wrap">
+              <img src="assets/oracle.svg" alt="Oracle" width="64" height="40">
+            </div>
+            <span class="integration-name">Oracle</span>
+          </div>
+
+          <div class="integration-badge" tabindex="0">
+            <div class="integration-icon-wrap">
+              <img src="assets/gitlab.svg" alt="GitLab" width="64" height="40">
+            </div>
+            <span class="integration-name">GitLab</span>
+          </div>
+
+          <div class="integration-badge" tabindex="0">
+            <div class="integration-icon-wrap">
+              <img src="assets/postgresql.svg" alt="PostgreSQL" width="64" height="40">
+            </div>
+            <span class="integration-name">PostgreSQL</span>
+          </div>
+
+          <div class="integration-badge" tabindex="0">
+            <div class="integration-icon-wrap">
+              <img src="assets/mcp.svg" alt="External tools via MCP" width="64" height="40">
+            </div>
+            <span class="integration-name">External tools via MCP</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA Section (Light Pastel Glow Banner) -->
+    <section class="section final-cta-section" id="cta">
+      <div class="container">
+        <div class="cta-card">
+          <img src="assets/cta-art.svg" alt="" class="cta-art-bg" aria-hidden="true">
+          
+          <div class="cta-content">
+            <h2 class="cta-title">
+              Start to build with
+              <span class="cta-title-brand">Akaden</span>
+            </h2>
+          </div>
+
+          <div class="cta-buttons">
+            <a href="#cta" class="btn btn-primary btn-lg">Get Akaden Now</a>
+            <a href="#contact" class="btn btn-secondary-white btn-lg">Talk To Our Team</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Dark Footer -->
+  <footer class="site-footer" id="contact">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">Akaden</span>
+        <span class="footer-tagline">Agentic AI for Ellucian integration engineering</span>
+      </div>
+
+      <nav class="footer-links" aria-label="Footer Links">
+        <a href="#hero" class="footer-link">ABCloudz corporate footer</a>
+        <a href="#hero" class="footer-link">Company</a>
+        <a href="#contact" class="footer-link">Contact</a>
+        <a href="#hero" class="footer-link">Legal</a>
+        <a href="#hero" class="footer-link">Social</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Video Modal -->
+  <dialog class="video-modal" id="videoModal">
+    <div class="video-modal-inner">
+      <button class="video-modal-close" aria-label="Close modal">&times;</button>
+      <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" title="Akaden Demo Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </dialog>
+
+  <!-- Script -->
+  <script src="js/main.js"></script>
+</body>
+</html>
