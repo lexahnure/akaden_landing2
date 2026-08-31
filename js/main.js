@@ -1,6 +1,11 @@
 // Akaden Landing Page Interactive Logic
 document.addEventListener("DOMContentLoaded", () => {
-          // 0. Hero Scroll Parallax & Fullscreen Black Transition Controller
+            // Easing function: Ease-In-Out Cubic (Gentle start, fast punchy middle, smooth finish)
+  function easeInOut(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  // 0. Hero Scroll Parallax & Fullscreen Black Transition Controller (Non-linear ease-in-out)
   const heroTrack = document.querySelector(".hero-scroll-track");
   const heroContent = document.querySelector(".hero-content");
   const heroBezel = document.querySelector(".hero-device-bezel");
@@ -12,37 +17,40 @@ document.addEventListener("DOMContentLoaded", () => {
     const trackHeight = heroTrack.offsetHeight - window.innerHeight;
     if (trackHeight <= 0) return;
 
-    // Progress from 0.0 (top) to 1.0 (bottom of track)
+    // Normalized progress from 0.0 (top) to 1.0 (bottom of track)
     const scrolled = -rect.top;
     const progress = Math.min(Math.max(scrolled / trackHeight, 0), 1);
 
-    // Phase 1: Text fades out and floats upward (0.0 -> 0.28 progress)
-    const textProgress = Math.min(progress / 0.25, 1);
+    // Phase 1: Text fades out and floats upward (Ease-in-out)
+    const rawTextProgress = Math.min(progress / 0.28, 1);
+    const textProgress = easeInOut(rawTextProgress);
     const textOpacity = Math.max(0, 1 - textProgress);
     const textTranslateY = -textProgress * 80;
     heroContent.style.opacity = textOpacity.toFixed(3);
     heroContent.style.transform = `translateY(${textTranslateY.toFixed(1)}px)`;
-    heroContent.style.pointerEvents = textOpacity < 0.1 ? "none" : "auto";
+    heroContent.style.pointerEvents = textOpacity < 0.05 ? "none" : "auto";
 
-        // Phase 2: Bezel moves into center & scales to final size (Responsive initial scale)
+    // Phase 2: Bezel moves into center & scales to final size (Ease-in-out non-linear curve)
     const isTabletOrMobile = window.innerWidth <= 1024;
     const baseScale = isTabletOrMobile ? 0.68 : 0.48;
     const targetScale = isTabletOrMobile ? 1.00 : 0.92;
-    const baseTranslateY = isTabletOrMobile ? 220 : 320;
+    const baseTranslateY = isTabletOrMobile ? 220 : 340;
 
-    const zoomProgress = Math.min(Math.max((progress - 0.06) / 0.82, 0), 1);
+    const rawZoomProgress = Math.min(Math.max((progress - 0.04) / 0.84, 0), 1);
+    const zoomProgress = easeInOut(rawZoomProgress);
     const scale = baseScale + (zoomProgress * (targetScale - baseScale));
     const translateY = (1 - zoomProgress) * baseTranslateY;
     heroBezel.style.transform = `translateY(${translateY.toFixed(1)}px) scale(${scale.toFixed(3)})`;
 
-    // Phase 3: Black overlay smoothly blankets the ENTIRE 100vw x 100vh screen
-    const overlayProgress = Math.min(Math.max((progress - 0.35) / 0.45, 0), 1);
+    // Phase 3: Black overlay smoothly blankets the ENTIRE 100vw x 100vh screen (Ease-in-out)
+    const rawOverlayProgress = Math.min(Math.max((progress - 0.28) / 0.52, 0), 1);
+    const overlayProgress = easeInOut(rawOverlayProgress);
     if (heroBlackOverlay) {
       heroBlackOverlay.style.opacity = overlayProgress.toFixed(3);
     }
 
     // Dissolve bezel border and shadow as screen goes completely black
-    if (overlayProgress > 0.8) {
+    if (overlayProgress > 0.75) {
       heroBezel.style.borderColor = "transparent";
       heroBezel.style.boxShadow = "none";
     } else {
