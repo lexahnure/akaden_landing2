@@ -560,16 +560,11 @@
   padding: 0 24px;
 }
 
-.meanwhile-outer-card {
+.meanwhile-card,
+.meanwhile-inner-card {
+  position: relative;
   width: 100%;
   max-width: 880px;
-  border-radius: var(--radius-outer);
-  padding: 8px;
-  background: var(--gradient-meanwhile-outer);
-  box-sizing: border-box;
-}
-
-.meanwhile-inner-card {
   background-color: var(--color-bg-dark);
   border-radius: var(--radius-inner);
   padding: 36px 40px;
@@ -578,6 +573,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 1;
+}
+
+.meanwhile-card::after,
+.meanwhile-inner-card::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: var(--radius-outer);
+  background: var(--gradient-meanwhile-outer);
+  z-index: -1;
+  pointer-events: none;
 }
 
 .meanwhile-tag {
@@ -1730,15 +1737,17 @@
     gap: 20px;
   }
 
-  /* Section 3: Meanwhile on mobile - outer card padding 4px */
-  .meanwhile-outer-card {
-    padding: 4px;
-    border-radius: 24px;
-  }
-
+  /* Section 3: Meanwhile on mobile - outer card border via ::after with -4px inset */
+  .meanwhile-card,
   .meanwhile-inner-card {
     border-radius: 20px;
     padding: 24px 18px;
+  }
+
+  .meanwhile-card::after,
+  .meanwhile-inner-card::after {
+    inset: -4px;
+    border-radius: 24px;
   }
 
   /* Section 4: The Shift - text below schemes, never covering them */
