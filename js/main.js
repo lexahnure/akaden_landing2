@@ -154,24 +154,38 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     5. Section 5: What Akaden Actually Is - Staggered Scroll Reveal
+     5. Section 5: What Akaden Actually Is - Fast Sequential Reveal on Scroll:
+        1 картка > плюс > 2 картка > плюс > 3 картка > дорівнює > 4 картка сума
      ------------------------------------------------------------------------ */
   const formulaContainer = document.getElementById('formulaContainer');
-  const formulaParts = document.querySelectorAll('.formula-part');
 
-  if (formulaContainer && formulaParts.length > 0) {
+  if (formulaContainer) {
+    const sequenceElements = [
+      formulaContainer.querySelector('.formula-part[data-reveal="1"]'),
+      formulaContainer.querySelector('.op-plus-1'),
+      formulaContainer.querySelector('.formula-part[data-reveal="2"]'),
+      formulaContainer.querySelector('.op-plus-2'),
+      formulaContainer.querySelector('.formula-part[data-reveal="3"]'),
+      formulaContainer.querySelector('.op-equals'),
+      formulaContainer.querySelector('.formula-result')
+    ].filter(Boolean);
+
+    let hasRevealedFormula = false;
+
     const formulaObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          formulaParts.forEach((part, index) => {
+        if (entry.isIntersecting && !hasRevealedFormula) {
+          hasRevealedFormula = true;
+          // Step through items quite fast one after another (130ms delay each)
+          sequenceElements.forEach((el, index) => {
             setTimeout(() => {
-              part.classList.add('revealed');
-            }, index * 180);
+              el.classList.add('revealed');
+            }, index * 130);
           });
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.2 });
+    }, { threshold: 0.25 });
 
     formulaObserver.observe(formulaContainer);
   }

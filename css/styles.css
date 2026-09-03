@@ -721,8 +721,8 @@
   flex-direction: column;
   justify-content: flex-start;
   opacity: 0;
-  transform: translateY(-20px);
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(16px);
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   z-index: 1;
 }
@@ -763,24 +763,41 @@
   align-items: center;
   justify-content: center;
   z-index: 5;
+  opacity: 0;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .op-plus-1 {
   left: calc(33.333% - 2px);
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(0.6);
+}
+
+.op-plus-1.revealed {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .op-plus-2 {
   left: calc(66.666% + 2px);
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(0.6);
+}
+
+.op-plus-2.revealed {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .op-equals {
   left: 50%;
   bottom: -20px;
-  transform: translate(-50%, 50%);
+  transform: translate(-50%, 50%) scale(0.6);
+}
+
+.op-equals.revealed {
+  opacity: 1;
+  transform: translate(-50%, 50%) scale(1);
 }
 
 /* Result Box: NO WHITE BACKGROUND */
@@ -790,6 +807,14 @@
   border-radius: var(--radius-card);
   padding: 24px 32px 10px;
   text-align: center;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.formula-result.revealed {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .formula-result p {
