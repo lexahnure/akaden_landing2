@@ -400,8 +400,8 @@
    and counts up 1 to 100 while pinned! */
 .repeat-pin-track {
   position: relative;
-  height: 180vh;
-  margin-top: 40px;
+  height: 140vh;
+  margin-top: 30px;
 }
 
 .repeat-sticky-holder {
