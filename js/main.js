@@ -1,6 +1,13 @@
 /**
  * Akaden Landing Page Interactive Logic
- * 100% Faithful to Figma Requirements & User Specifications
+ * Fulfills all user specifications:
+ * 1. Classic flow: Repeat card appears after step 3, stays centered for 1 full scroll runway,
+ *    and during this time only the counter counts 1 -> 100 -> Infinity.
+ * 2. Meanwhile in 2026: Sticky with dark background sliding up underneath.
+ * 3. The Shift: Swapping between user-provided Manual SDLC and Agentic SDLC schemes.
+ * 4. What Akaden actually is: Staggered reveal for cards.
+ * 5. Parallax stationary dots in Contact section.
+ * 6. FAQ Accordion.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -37,42 +44,44 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     2. Section 2: Classic Flow Gradual Counter (1 to 100 on scroll)
+     2. Section 2: Classic Flow - Pinned Center Repeat Card (Counts 1 to 100)
      ------------------------------------------------------------------------ */
-  const classicSection = document.getElementById('classic-flow');
+  const repeatPinTrack = document.getElementById('repeatPinTrack');
   const repeatMultiplier = document.getElementById('repeatMultiplier');
 
-  if (classicSection && repeatMultiplier) {
-    let lastRenderedVal = 'x1';
+  if (repeatPinTrack && repeatMultiplier) {
+    let lastRenderedMultiplier = 'x1';
 
-    const handleClassicFlowScroll = () => {
-      const rect = classicSection.getBoundingClientRect();
+    const handleRepeatScroll = () => {
+      const rect = repeatPinTrack.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
-      // Start counting when section top hits 60% of viewport
-      // Finish counting when bottom reaches 40% of viewport
-      const startPoint = windowHeight * 0.6;
-      const totalScrollDistance = rect.height;
-      const currentScroll = startPoint - rect.top;
+      // Scrollable distance inside the pin track
+      const scrollableDistance = rect.height - windowHeight;
 
-      const progress = Math.min(Math.max(currentScroll / totalScrollDistance, 0), 1);
+      if (scrollableDistance > 0) {
+        // How far the track has scrolled past the top
+        const scrolled = -rect.top;
+        const progress = Math.min(Math.max(scrolled / scrollableDistance, 0), 1);
 
-      let text = 'x1';
-      if (progress >= 0.98) {
-        text = 'x ∞';
-      } else {
-        const count = Math.min(100, Math.max(1, Math.round(1 + progress * 99)));
-        text = 'x' + count;
-      }
+        let targetText = 'x1';
+        if (progress >= 0.95) {
+          targetText = 'x ∞';
+        } else {
+          // Gradual count from 1 to 100 while pinned
+          const count = Math.min(100, Math.max(1, Math.round(1 + progress * 99)));
+          targetText = 'x' + count;
+        }
 
-      if (text !== lastRenderedVal) {
-        lastRenderedVal = text;
-        repeatMultiplier.textContent = text;
+        if (targetText !== lastRenderedMultiplier) {
+          lastRenderedMultiplier = targetText;
+          repeatMultiplier.textContent = targetText;
+        }
       }
     };
 
-    window.addEventListener('scroll', handleClassicFlowScroll, { passive: true });
-    handleClassicFlowScroll();
+    window.addEventListener('scroll', handleRepeatScroll, { passive: true });
+    handleRepeatScroll();
   }
 
   /* ------------------------------------------------------------------------
@@ -80,21 +89,18 @@ document.addEventListener('DOMContentLoaded', () => {
      ------------------------------------------------------------------------ */
   const meanwhileTrack = document.getElementById('meanwhileTrack');
   const meanwhileDarkBg = document.getElementById('meanwhileDarkBg');
-  const meanwhileSticky = document.getElementById('meanwhileSticky');
 
   if (meanwhileTrack && meanwhileDarkBg) {
     const handleMeanwhileScroll = () => {
       const trackRect = meanwhileTrack.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
-      // As user scrolls through the track, calculate how much the black background should rise
-      // Total scroll length inside track
       const scrollableDist = trackRect.height - windowHeight;
       if (scrollableDist > 0) {
         const scrolled = -trackRect.top;
         const progress = Math.min(Math.max(scrolled / scrollableDist, 0), 1);
 
-        // Black background rises up smoothly from 0% height to 75% height
+        // Dark background rises up smoothly
         const targetHeight = Math.min(progress * 100, 75);
         meanwhileDarkBg.style.height = `${targetHeight}vh`;
       }
@@ -105,31 +111,39 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     4. Section 4: The Shift - Scheme Diagram Swap on Scroll
+     4. Section 4: The Shift - Swap between Manual SDLC and Agentic SDLC
      ------------------------------------------------------------------------ */
   const shiftDisplay = document.getElementById('shiftDisplay');
   const scheme1 = document.getElementById('scheme1');
   const scheme2 = document.getElementById('scheme2');
   const shiftTagText = document.getElementById('shiftTagText');
+  const shiftCaption = document.getElementById('shiftCaption');
 
   if (shiftDisplay && scheme1 && scheme2) {
     const handleShiftSwap = () => {
       const rect = shiftDisplay.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
+      // Swap when user has scrolled past center of diagram
       const isPastCenter = rect.top < windowHeight * 0.35;
 
       if (isPastCenter) {
         if (!scheme2.classList.contains('active')) {
           scheme1.classList.remove('active');
           scheme2.classList.add('active');
-          if (shiftTagText) shiftTagText.textContent = 'Agentic Architecture (Scheme 2)';
+          if (shiftTagText) shiftTagText.textContent = 'Agentic SDLC AKADEN';
+          if (shiftCaption) {
+            shiftCaption.innerHTML = '<strong>Agentic SDLC AKADEN.</strong> AI agents sit between the engineer and the systems. The engineer supervises.';
+          }
         }
       } else {
         if (!scheme1.classList.contains('active')) {
           scheme2.classList.remove('active');
           scheme1.classList.add('active');
-          if (shiftTagText) shiftTagText.textContent = 'New workflow';
+          if (shiftTagText) shiftTagText.textContent = 'Manual SDLC';
+          if (shiftCaption) {
+            shiftCaption.innerHTML = '<strong>Manual SDLC (Old Workflow).</strong> Engineer manually handles every pipeline, system connection, and business rule by hand.';
+          }
         }
       }
     };
@@ -174,7 +188,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (rect.top < windowHeight && rect.bottom > 0) {
         const scrollDelta = -rect.top;
-        // Counter-translate to keep dots visually stationary relative to screen
         contactDotsImg.style.transform = `translate3d(0, ${scrollDelta * 0.85}px, 0)`;
       }
     };

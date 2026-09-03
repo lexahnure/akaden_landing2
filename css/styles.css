@@ -2,7 +2,7 @@
    Akaden Landing Page Styles
    100% Faithful to Figma Node 16919:3497
    All exact backgrounds, gradients, borders, radii, and typography.
-   Zero invented shadows.
+   Zero extra shadows.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -37,6 +37,10 @@
   line-height: 51px;
   color: var(--color-text-dark);
   letter-spacing: -0.02em;
+}
+
+.section-title.text-left {
+  text-align: left;
 }
 
 .section-subtitle {
@@ -319,15 +323,12 @@
 }
 
 /* --------------------------------------------------------------------------
-   Section 2: The Classical Flow (ClassicFlow Node 16919:3509)
+   Section 2: The Classical Flow with Sticky Repeat Pinning Track
    -------------------------------------------------------------------------- */
 .section-classic {
-  padding: 80px 0 100px;
+  padding-top: 80px;
+  padding-bottom: 0;
   background-color: var(--color-bg-white);
-  position: relative;
-}
-
-.classic-flow-layout {
   position: relative;
 }
 
@@ -381,8 +382,9 @@
   letter-spacing: 0.03em;
 }
 
-.pill-icon {
-  color: var(--color-primary-blue);
+.step-icon-img {
+  width: 18px;
+  height: 18px;
 }
 
 .classic-card-text {
@@ -393,22 +395,31 @@
   color: var(--color-text-body);
 }
 
-/* Repeat Card (Sticky Pin & Dynamic Counter 1 to 100) */
-.classic-repeat-sticky-holder {
+/* Repeat Card Sticky Runway Track:
+   Appears after 3 step cards, locks in center for 1 full scroll runway,
+   and counts up 1 to 100 while pinned! */
+.repeat-pin-track {
+  position: relative;
+  height: 180vh;
+  margin-top: 40px;
+}
+
+.repeat-sticky-holder {
   position: sticky;
-  bottom: 24px;
+  top: calc(50vh - 120px);
   z-index: 10;
-  margin-top: 24px;
+  display: flex;
+  justify-content: center;
 }
 
 .classic-card-repeat {
   background-color: var(--color-bg-blue-tint);
   border: none;
   border-radius: var(--radius-card);
-  padding: 24px 40px;
+  padding: 32px 40px;
   text-align: center;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  width: 100%;
+  max-width: 880px;
 }
 
 .repeat-card-header {
@@ -421,24 +432,25 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
   background-color: var(--color-bg-blue-tint);
-  padding: 6px 16px;
+  padding: 6px 20px;
   border-radius: 24px;
   border: 1px solid rgba(0, 45, 156, 0.15);
 }
 
-.repeat-icon {
-  color: var(--color-primary-blue);
+.repeat-icon-img {
+  width: 24px;
+  height: 24px;
 }
 
 .repeat-multiplier {
   font-family: var(--font-sans);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   line-height: 27px;
   color: var(--color-primary-blue);
-  min-width: 48px;
+  min-width: 56px;
   text-align: center;
 }
 
@@ -535,7 +547,6 @@
   color: var(--color-text-white-sub);
 }
 
-/* Dark background layer that slides up under the sticky Meanwhile card */
 .meanwhile-dark-rising-bg {
   position: absolute;
   bottom: 0;
@@ -548,7 +559,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   Section 4: The Shift
+   Section 4: The Shift with Dual Image Schemes
    -------------------------------------------------------------------------- */
 .section-shift {
   background-color: var(--color-bg-dark);
@@ -591,9 +602,9 @@
   position: relative;
   width: 100%;
   max-width: 1200px;
-  height: 550px;
+  height: 620px;
   border-radius: var(--radius-card);
-  background-color: #0b0f1d;
+  background-color: #000214;
   border: 1px solid var(--color-border-dark);
   overflow: hidden;
 }
@@ -605,8 +616,11 @@
   height: 100%;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   transform: scale(0.98);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .shift-scheme-pane.active {
@@ -618,12 +632,8 @@
 .shift-diagram-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
-}
-
-.scheme-2-graphic {
-  filter: hue-rotate(180deg) brightness(1.05);
 }
 
 .shift-top-tag {
@@ -657,7 +667,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(16, 20, 41, 0.80);
+  background-color: rgba(16, 20, 41, 0.85);
   backdrop-filter: blur(40px);
   -webkit-backdrop-filter: blur(40px);
   padding: 16px 24px;
@@ -678,7 +688,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   Section 5: What Akaden Actually Is (Node 16919:3546)
+   Section 5: What Akaden Actually Is (Absolute + and = Overlapping Cards)
    -------------------------------------------------------------------------- */
 .section-what-is {
   padding: 100px 0 90px;
@@ -689,15 +699,15 @@
   background-color: rgb(229, 236, 255);
   background-image: var(--gradient-formula);
   border-radius: var(--radius-card);
-  padding: 8px;
+  padding: 32px;
 }
 
-.formula-row {
+.formula-cards-wrapper {
+  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 8px;
+  align-items: stretch;
+  gap: 20px;
+  margin-bottom: 24px;
 }
 
 .formula-part {
@@ -713,6 +723,8 @@
   opacity: 0;
   transform: translateY(-20px);
   transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 1;
 }
 
 .formula-part.revealed {
@@ -737,30 +749,46 @@
   color: var(--color-text-body);
 }
 
+/* Absolute Floating Operators Overlapping Cards */
 .formula-operator {
+  position: absolute;
   width: 40px;
   height: 40px;
-  border-radius: 30px;
+  border-radius: 50%;
   background-color: rgb(0, 0, 0);
   color: var(--color-text-white);
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
+  z-index: 5;
   backdrop-filter: blur(40px);
   -webkit-backdrop-filter: blur(40px);
 }
 
-.formula-equals-wrap {
-  display: flex;
-  justify-content: center;
-  margin: 12px 0 8px;
+.op-plus-1 {
+  left: calc(33.333% - 10px);
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
+.op-plus-2 {
+  left: calc(66.666% + 10px);
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.op-equals {
+  left: 50%;
+  bottom: -32px;
+  transform: translate(-50%, 50%);
+}
+
+/* Result Box: NO WHITE BACKGROUND */
 .formula-result {
-  background-color: var(--color-bg-white);
+  background: transparent;
+  border: none;
   border-radius: var(--radius-card);
-  padding: 24px 32px;
+  padding: 24px 32px 10px;
   text-align: center;
 }
 
@@ -777,7 +805,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   Section 6: What It Does (Node 16919:3565)
+   Section 6: What It Does (First 3 cards have transparent borders)
    -------------------------------------------------------------------------- */
 .section-what-does {
   padding: 90px 0 100px;
@@ -791,12 +819,15 @@
 }
 
 .scenario-card {
-  background-color: var(--color-bg-card-blue);
-  border: 1px solid var(--color-border-card);
   border-radius: var(--radius-card);
   padding: 32px;
   display: flex;
   flex-direction: column;
+}
+
+.scenario-card-solid {
+  background-color: var(--color-bg-card-blue);
+  border: 1px solid transparent; /* Transparent border per user request */
 }
 
 .scenario-card-roadmap {
@@ -871,7 +902,8 @@
 }
 
 /* --------------------------------------------------------------------------
-   Section 7: Why this isn't "AI wrote some code" (Node 16919:3602)
+   Section 7: Why this isn't "AI wrote some code"
+   Sticky title aligned to top of right cards
    -------------------------------------------------------------------------- */
 .section-why-not {
   padding: 100px 0;
@@ -901,12 +933,10 @@
 .why-not-left {
   flex: 0 0 380px;
   position: sticky;
-  top: 120px;
+  top: 100px;
   align-self: flex-start;
-}
-
-.why-not-sticky-box {
-  padding-right: 20px;
+  margin: 0;
+  padding: 0;
 }
 
 .why-not-title {
@@ -916,6 +946,8 @@
   line-height: 51px;
   color: var(--color-text-dark);
   letter-spacing: -0.02em;
+  margin: 0;
+  padding: 0;
 }
 
 .why-not-right {
@@ -923,6 +955,8 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  margin: 0;
+  padding: 0;
 }
 
 .diff-card {
@@ -965,11 +999,16 @@
 }
 
 /* --------------------------------------------------------------------------
-   Section 8: Benefits (Node 16919:3618)
+   Section 8: Benefits (Title on Left Side, Exact Figma SVGs)
    -------------------------------------------------------------------------- */
 .section-benefits {
   padding: 90px 0 100px;
   background-color: var(--color-bg-white);
+}
+
+.benefits-header-left {
+  text-align: left;
+  margin-bottom: 40px;
 }
 
 .benefits-grid {
@@ -988,11 +1027,15 @@
 .benefit-icon-box {
   width: 32px;
   height: 32px;
-  color: var(--color-primary-blue);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 24px;
+}
+
+.benefit-svg {
+  width: 32px;
+  height: 32px;
 }
 
 .benefit-title {
@@ -1013,7 +1056,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   Section 9: Contact Us & Form (Node 16919:4047)
+   Section 9: Contact Us & Form
    -------------------------------------------------------------------------- */
 .section-contact {
   position: relative;
@@ -1201,7 +1244,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   Section 10: FAQ Accordion (Node 16919:3638)
+   Section 10: FAQ Accordion
    -------------------------------------------------------------------------- */
 .section-faq {
   padding: 100px 0 110px;
@@ -1354,12 +1397,14 @@
     line-height: 1.1;
   }
 
-  .formula-row {
+  .formula-cards-wrapper {
     flex-direction: column;
   }
 
-  .formula-operator-plus {
-    transform: rotate(90deg);
+  .op-plus-1, .op-plus-2, .op-equals {
+    position: static;
+    transform: none;
+    margin: 8px auto;
   }
 
   .formula-part {
