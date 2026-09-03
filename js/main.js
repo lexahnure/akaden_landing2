@@ -132,28 +132,31 @@ document.addEventListener('DOMContentLoaded', () => {
         // Progress goes 0.0 -> 1.0 as user scrolls through track
         const progress = Math.min(Math.max(scrolled / scrollableDist, 0), 1);
 
-        // Wipe line moves from right (100%) to left (0%)
-        const dividerPercent = (100 - (progress * 100)).toFixed(2);
+        // Wipe reveal completes during the first 75% of the runway.
+        // During the remaining 25% (quarter of scroll), it remains pinned in the center
+        // with the new Agentic SDLC scheme fully revealed!
+        const revealProgress = Math.min(progress / 0.75, 1);
+        const dividerPercent = (100 - (revealProgress * 100)).toFixed(2);
+        const numDivider = parseFloat(dividerPercent);
 
         // Clip Scheme 2 so it is visible to the right of the divider
         scheme2.style.clipPath = `inset(0 0 0 ${dividerPercent}%)`;
         shiftRevealLine.style.left = `${dividerPercent}%`;
 
-        const numDivider = parseFloat(dividerPercent);
-
-        // Reveal line disappears at the end on the left
-        if (numDivider <= 1.5) {
+        // Reveal line disappears once it reaches the left end (and stays hidden during the post-reveal quarter)
+        if (numDivider <= 1.0 || progress >= 0.75) {
           shiftRevealLine.style.opacity = '0';
         } else {
           shiftRevealLine.style.opacity = '1';
         }
+
         if (numDivider > 80) {
           if (shiftTagText) shiftTagText.textContent = 'Manual SDLC';
           if (shiftTagPulse) shiftTagPulse.style.backgroundColor = '#ff4d4f';
           if (shiftCaption) {
             shiftCaption.innerHTML = '<strong>Manual SDLC (Old Workflow).</strong> Hand-configure every workflow and integration manually.';
           }
-        } else if (numDivider < 20) {
+        } else if (numDivider < 15 || progress >= 0.75) {
           if (shiftTagText) shiftTagText.textContent = 'Agentic SDLC AKADEN';
           if (shiftTagPulse) shiftTagPulse.style.backgroundColor = '#00ddff';
           if (shiftCaption) {

@@ -559,33 +559,19 @@
 }
 
 /* --------------------------------------------------------------------------
-   Section 4: The Shift with Sticky Wipe Reveal (Right to Left)
+   Section 4: The Shift with Diagram Sticky in Center
    -------------------------------------------------------------------------- */
-.shift-scroll-track {
-  position: relative;
-  height: 220vh;
-  background-color: var(--color-bg-dark);
-}
-
-.shift-sticky-wrapper {
-  position: sticky;
-  top: 72px;
-  z-index: 15;
-  background-color: var(--color-bg-dark);
-  padding-top: 120px; /* doubled padding from meanwhile to the shift */
-  padding-bottom: 100px; /* 100px padding to the bottom border of the dark section */
-}
-
 .section-shift {
   background-color: var(--color-bg-dark);
-  padding: 0;
+  padding-top: 120px; /* doubled padding from meanwhile */
+  padding-bottom: 100px; /* 100px padding to bottom border of dark section */
   color: var(--color-text-white);
   position: relative;
 }
 
 .shift-header {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 48px;
 }
 
 .shift-title {
@@ -604,12 +590,26 @@
   line-height: 27px;
   color: var(--color-text-white-sub);
   max-width: 800px;
-  margin: 12px auto 0;
+  margin: 16px auto 0;
 }
 
-.shift-display {
+.shift-diagram-track {
+  position: relative;
+  height: 220vh;
+}
+
+.shift-sticky-center {
+  position: sticky;
+  top: calc(50vh - 300px); /* diagram sticky centered on screen */
+  z-index: 10;
   display: flex;
   justify-content: center;
+}
+
+@media (max-height: 720px) {
+  .shift-sticky-center {
+    top: 76px;
+  }
 }
 
 .shift-diagram-card {
