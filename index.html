@@ -49,7 +49,6 @@
     <section class="section-hero" id="hero">
       <div class="hero-bg-wrapper" aria-hidden="true">
         <img src="assets/hero-bg-art.svg" alt="" class="hero-bg-art" width="1624" height="1624">
-        <div class="hero-ambient-glow"></div>
       </div>
 
       <div class="container narrow-container hero-content">
@@ -73,101 +72,106 @@
       </div>
     </section>
 
-    <!-- Section 2: The Classical Flow -->
+    <!-- Section 2: The Classical Flow with Sticky Repeat Block -->
     <section class="section-classic" id="classic-flow">
       <div class="container narrow-container">
         <div class="section-header">
           <h2 class="section-title">The classical flow</h2>
         </div>
 
-        <div class="classic-cards-stack">
-          <!-- Step 1 Card -->
-          <article class="classic-card">
-            <div class="classic-card-header">
-              <span class="step-circle">1</span>
-              <div class="step-pill">
-                <svg class="pill-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
-                </svg>
-                <span>Assessment</span>
+        <div class="classic-flow-layout">
+          <!-- Step Cards Stack -->
+          <div class="classic-cards-stack">
+            <!-- Step 1 Card -->
+            <article class="classic-card">
+              <div class="classic-card-header">
+                <span class="step-circle">1</span>
+                <div class="step-pill">
+                  <svg class="pill-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+                  </svg>
+                  <span>Assessment</span>
+                </div>
               </div>
-            </div>
-            <p class="classic-card-text">
-              Read old workflows — on-prem code or an existing pipeline — and manually diagram data flow, tables, and business rules by hand.
-            </p>
-          </article>
+              <p class="classic-card-text">
+                Read old workflows — on-prem code or an existing pipeline — and manually diagram data flow, tables, and business rules by hand.
+              </p>
+            </article>
 
-          <!-- Step 2 Card -->
-          <article class="classic-card">
-            <div class="classic-card-header">
-              <span class="step-circle">2</span>
-              <div class="step-pill">
-                <svg class="pill-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
-                </svg>
-                <span>Build</span>
+            <!-- Step 2 Card -->
+            <article class="classic-card">
+              <div class="classic-card-header">
+                <span class="step-circle">2</span>
+                <div class="step-pill">
+                  <svg class="pill-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                  </svg>
+                  <span>Build</span>
+                </div>
               </div>
-            </div>
-            <p class="classic-card-text">
-              Hand-configure the logic, whether that's PL/SQL, UniBasic, or Ellucian's Integration Designer. Hand-write transformations and error-handling. Repeat for every integration.
-            </p>
-          </article>
+              <p class="classic-card-text">
+                Hand-configure the logic, whether that's PL/SQL, UniBasic, or Ellucian's Integration Designer. Hand-write transformations and error-handling. Repeat for every integration.
+              </p>
+            </article>
 
-          <!-- Step 3 Card -->
-          <article class="classic-card">
-            <div class="classic-card-header">
-              <span class="step-circle">3</span>
-              <div class="step-pill">
-                <svg class="pill-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M2 22l10-10"></path>
-                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                </svg>
-                <span>Maintain</span>
+            <!-- Step 3 Card -->
+            <article class="classic-card">
+              <div class="classic-card-header">
+                <span class="step-circle">3</span>
+                <div class="step-pill">
+                  <svg class="pill-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M2 22l10-10"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                  </svg>
+                  <span>Maintain</span>
+                </div>
               </div>
-            </div>
-            <p class="classic-card-text">
-              Write tests from scratch, debug one failure at a time, monitor with no tooling carried over from the build phase.
-            </p>
-          </article>
+              <p class="classic-card-text">
+                Write tests from scratch, debug one failure at a time, monitor with no tooling carried over from the build phase.
+              </p>
+            </article>
+          </div>
 
-          <!-- Repeat Card with Dynamic Multiplier on Scroll -->
-          <article class="classic-card classic-card-repeat" id="repeatCard">
-            <div class="repeat-badge-wrapper">
-              <div class="repeat-badge" id="repeatBadge">
-                <svg class="repeat-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <polyline points="23 4 23 10 17 10"></polyline>
-                  <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
-                </svg>
-                <span class="repeat-multiplier" id="repeatMultiplier" aria-live="polite">x1</span>
+          <!-- Sticky Repeat Card (Counts steadily from 1 to 100 on scroll) -->
+          <div class="classic-repeat-sticky-holder">
+            <article class="classic-card-repeat" id="repeatCard">
+              <div class="repeat-card-header">
+                <div class="repeat-badge" id="repeatBadge">
+                  <svg class="repeat-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="23 4 23 10 17 10"></polyline>
+                    <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                  </svg>
+                  <span class="repeat-multiplier" id="repeatMultiplier" aria-live="polite">x1</span>
+                </div>
               </div>
-            </div>
-            <h3 class="repeat-title">Repeat — by hand, every time, for every integration.</h3>
-            <p class="repeat-subtext">
-              It's real engineering work. But the knowledge of how any of it works usually lives in one engineer's head — and walks out the door when they move on.
-            </p>
-          </article>
+              <h3 class="repeat-title">Repeat — by hand, every time, for every integration.</h3>
+              <p class="repeat-subtext">
+                It's real engineering work. But the knowledge of how any of it works usually lives in one engineer's head — and walks out the door when they move on.
+              </p>
+            </article>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Section 3: Meanwhile in 2026 (Sticky pin transitioning to dark) -->
-    <div class="meanwhile-pin-wrapper" id="meanwhileWrapper">
-      <section class="section-meanwhile" id="meanwhile">
-        <div class="container narrow-container">
-          <div class="meanwhile-outer-card">
-            <div class="meanwhile-inner-card">
-              <div class="meanwhile-tag">Meanwhile, in 2026</div>
-              <p class="meanwhile-body">
-                Agentic AI stopped being a demo. It's how software actually gets built now — specialized agents doing bounded, verifiable engineering steps under human supervision, not a chatbot guessing at the whole job in one shot.
-              </p>
-              <p class="meanwhile-punchline">
-                So here's Akaden — built specifically for that shift, for Banner and Colleague.
-              </p>
-            </div>
+    <!-- Section 3: Meanwhile in 2026 (Sticky pin with dark background sliding under it) -->
+    <div class="meanwhile-scroll-track" id="meanwhileTrack">
+      <div class="meanwhile-sticky-container" id="meanwhileSticky">
+        <div class="meanwhile-outer-card">
+          <div class="meanwhile-inner-card">
+            <div class="meanwhile-tag">Meanwhile, in 2026</div>
+            <p class="meanwhile-body">
+              Agentic AI stopped being a demo. It's how software actually gets built now — specialized agents doing bounded, verifiable engineering steps under human supervision, not a chatbot guessing at the whole job in one shot.
+            </p>
+            <p class="meanwhile-punchline">
+              So here's Akaden — built specifically for that shift, for Banner and Colleague.
+            </p>
           </div>
         </div>
-      </section>
+      </div>
+      <!-- Black background layer that slides up under the sticky Meanwhile block -->
+      <div class="meanwhile-dark-rising-bg" id="meanwhileDarkBg" aria-hidden="true"></div>
     </div>
 
     <!-- Section 4: The Shift (Dark Theme) -->
@@ -208,7 +212,7 @@
       </div>
     </section>
 
-    <!-- Section 5: What Akaden Actually Is (Staggered scroll reveal) -->
+    <!-- Section 5: What Akaden Actually Is (Formula with exact gradient) -->
     <section class="section-what-is" id="what-is">
       <div class="container wide-container">
         <div class="section-header">
@@ -354,7 +358,7 @@
           </div>
         </div>
 
-        <!-- Right Diff List -->
+        <!-- Right Diff List (No borders, no shadows) -->
         <div class="why-not-right">
           <!-- Diff Card 1 -->
           <article class="diff-card">
@@ -453,15 +457,15 @@
       </div>
     </section>
 
-    <!-- Section 9: Contact Us with Parallax Dots -->
+    <!-- Section 9: Contact Us with Multi-layer Glow & Parallax Dots -->
     <section class="section-contact" id="contact">
-      <!-- Parallax Dots Background (Stationary / Fixed Relative to Scroll) -->
+      <!-- Parallax Dots Background (Stationary on Scroll) -->
       <div class="contact-dots-layer" id="contactDotsLayer" aria-hidden="true">
         <img src="assets/dots.svg" alt="" class="contact-dots-img" width="1093" height="1249">
       </div>
 
       <div class="container wide-container contact-inner-grid">
-        <!-- Left Column: Copy & Proof Box -->
+        <!-- Left Column: Copy & Proof Box (No shadows) -->
         <div class="contact-left">
           <div class="contact-header-text">
             <h2 class="contact-heading">Already in production, every day</h2>
@@ -480,9 +484,10 @@
           </div>
         </div>
 
-        <!-- Right Column: Interactive Form -->
+        <!-- Right Column: Interactive Form with Figma Gradient Glow Wrapper -->
         <div class="contact-right">
           <div class="contact-form-outer">
+            <div class="contact-form-glow-blur" aria-hidden="true"></div>
             <div class="contact-form-inner">
               <h3 class="form-title">Bring us your Banner or Colleague backlog</h3>
 
@@ -663,7 +668,7 @@
     </section>
   </main>
 
-  <!-- Footer -->
+  <!-- Section 11: Dark Footer (#0f172a from Figma) -->
   <footer class="site-footer">
     <div class="container wide-container">
       <p class="footer-note">

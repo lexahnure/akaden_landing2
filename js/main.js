@@ -1,12 +1,12 @@
 /**
  * Akaden Landing Page Interactive Logic
- * Fulfills all 10 user requirements with smooth, optimized animations
+ * 100% Faithful to Figma Requirements & User Specifications
  */
 
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ------------------------------------------------------------------------
-     1. Sticky Site Header with Scroll Shadow
+     1. Sticky Site Header with Border Accent on Scroll
      ------------------------------------------------------------------------ */
   const header = document.getElementById('header');
   const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
       primaryNav.classList.toggle('active');
     });
 
-    // Close menu when clicking a link
     primaryNav.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', () => {
         primaryNav.classList.remove('active');
@@ -38,85 +37,75 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     2. Classic Flow: Dynamic Repeat Multiplier (x1 -> x2 -> x3 -> x100 -> x ∞)
+     2. Section 2: Classic Flow Gradual Counter (1 to 100 on scroll)
      ------------------------------------------------------------------------ */
-  const repeatCard = document.getElementById('repeatCard');
+  const classicSection = document.getElementById('classic-flow');
   const repeatMultiplier = document.getElementById('repeatMultiplier');
-  const repeatBadge = document.getElementById('repeatBadge');
 
-  if (repeatCard && repeatMultiplier) {
-    let currentMultiplier = 'x1';
+  if (classicSection && repeatMultiplier) {
+    let lastRenderedVal = 'x1';
 
-    const updateRepeatMultiplier = () => {
-      const rect = repeatCard.getBoundingClientRect();
+    const handleClassicFlowScroll = () => {
+      const rect = classicSection.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
-      // Calculate progress of card through the viewport
-      // When card top hits 85% of viewport -> starts; when bottom hits 25% -> finishes
-      const totalDistance = windowHeight * 0.7;
-      const currentPos = (windowHeight * 0.85) - rect.top;
-      const progress = Math.min(Math.max(currentPos / totalDistance, 0), 1);
+      // Start counting when section top hits 60% of viewport
+      // Finish counting when bottom reaches 40% of viewport
+      const startPoint = windowHeight * 0.6;
+      const totalScrollDistance = rect.height;
+      const currentScroll = startPoint - rect.top;
 
-      let targetMultiplier = 'x1';
-      let isEscalated = false;
+      const progress = Math.min(Math.max(currentScroll / totalScrollDistance, 0), 1);
 
-      if (progress > 0.85) {
-        targetMultiplier = 'x ∞';
-        isEscalated = true;
-      } else if (progress > 0.65) {
-        targetMultiplier = 'x100';
-        isEscalated = true;
-      } else if (progress > 0.45) {
-        targetMultiplier = 'x3';
-      } else if (progress > 0.20) {
-        targetMultiplier = 'x2';
+      let text = 'x1';
+      if (progress >= 0.98) {
+        text = 'x ∞';
       } else {
-        targetMultiplier = 'x1';
+        const count = Math.min(100, Math.max(1, Math.round(1 + progress * 99)));
+        text = 'x' + count;
       }
 
-      if (targetMultiplier !== currentMultiplier) {
-        currentMultiplier = targetMultiplier;
-        repeatMultiplier.textContent = currentMultiplier;
-
-        if (isEscalated) {
-          repeatMultiplier.classList.add('escalated');
-          if (repeatBadge) repeatBadge.style.transform = 'scale(1.08)';
-        } else {
-          repeatMultiplier.classList.remove('escalated');
-          if (repeatBadge) repeatBadge.style.transform = 'scale(1)';
-        }
+      if (text !== lastRenderedVal) {
+        lastRenderedVal = text;
+        repeatMultiplier.textContent = text;
       }
     };
 
-    window.addEventListener('scroll', updateRepeatMultiplier, { passive: true });
-    updateRepeatMultiplier();
+    window.addEventListener('scroll', handleClassicFlowScroll, { passive: true });
+    handleClassicFlowScroll();
   }
 
   /* ------------------------------------------------------------------------
-     3. Meanwhile in 2026: Sticky Pinning & Dark Transition
+     3. Section 3: Meanwhile in 2026 (Sticky with Dark Background sliding UNDER)
      ------------------------------------------------------------------------ */
-  const meanwhileWrapper = document.getElementById('meanwhileWrapper');
-  const shiftSection = document.getElementById('shift');
+  const meanwhileTrack = document.getElementById('meanwhileTrack');
+  const meanwhileDarkBg = document.getElementById('meanwhileDarkBg');
+  const meanwhileSticky = document.getElementById('meanwhileSticky');
 
-  if (meanwhileWrapper && shiftSection) {
-    const handleMeanwhileTransition = () => {
-      const shiftRect = shiftSection.getBoundingClientRect();
+  if (meanwhileTrack && meanwhileDarkBg) {
+    const handleMeanwhileScroll = () => {
+      const trackRect = meanwhileTrack.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
-      // When shift section approaches within 30% of viewport, darken meanwhile background
-      if (shiftRect.top < windowHeight * 0.5) {
-        meanwhileWrapper.style.backgroundColor = 'var(--color-bg-dark)';
-      } else {
-        meanwhileWrapper.style.backgroundColor = 'var(--color-bg-white)';
+      // As user scrolls through the track, calculate how much the black background should rise
+      // Total scroll length inside track
+      const scrollableDist = trackRect.height - windowHeight;
+      if (scrollableDist > 0) {
+        const scrolled = -trackRect.top;
+        const progress = Math.min(Math.max(scrolled / scrollableDist, 0), 1);
+
+        // Black background rises up smoothly from 0% height to 75% height
+        const targetHeight = Math.min(progress * 100, 75);
+        meanwhileDarkBg.style.height = `${targetHeight}vh`;
       }
     };
 
-    window.addEventListener('scroll', handleMeanwhileTransition, { passive: true });
-    handleMeanwhileTransition();
+    window.addEventListener('scroll', handleMeanwhileScroll, { passive: true });
+    handleMeanwhileScroll();
   }
 
   /* ------------------------------------------------------------------------
-     4. The Shift: Scheme Diagram Swap on Scroll
+     4. Section 4: The Shift - Scheme Diagram Swap on Scroll
      ------------------------------------------------------------------------ */
   const shiftDisplay = document.getElementById('shiftDisplay');
   const scheme1 = document.getElementById('scheme1');
@@ -128,7 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const rect = shiftDisplay.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
-      // When user has scrolled past center of diagram
       const isPastCenter = rect.top < windowHeight * 0.35;
 
       if (isPastCenter) {
@@ -151,17 +139,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     5. What Akaden Actually Is: Staggered Scroll Reveal (Y: -20px -> 0, opacity: 0 -> 1)
+     5. Section 5: What Akaden Actually Is - Staggered Scroll Reveal
      ------------------------------------------------------------------------ */
   const formulaContainer = document.getElementById('formulaContainer');
   const formulaParts = document.querySelectorAll('.formula-part');
 
   if (formulaContainer && formulaParts.length > 0) {
-    const observerOptions = {
-      root: null,
-      threshold: 0.25
-    };
-
     const formulaObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -173,13 +156,13 @@ document.addEventListener('DOMContentLoaded', () => {
           observer.unobserve(entry.target);
         }
       });
-    }, observerOptions);
+    }, { threshold: 0.2 });
 
     formulaObserver.observe(formulaContainer);
   }
 
   /* ------------------------------------------------------------------------
-     9. Contact Us: Parallax Dots (Fixed / Stationary on Scroll)
+     9. Section 9: Contact Us - Parallax Stationary Dots
      ------------------------------------------------------------------------ */
   const contactSection = document.getElementById('contact');
   const contactDotsImg = document.querySelector('.contact-dots-img');
@@ -189,12 +172,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const rect = contactSection.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
-      // If contact section is visible in or near viewport
       if (rect.top < windowHeight && rect.bottom > 0) {
-        // Counter-translate to keep dots visually stationary
-        // rect.top changes as you scroll; counter-scrolling with 1:1 ratio pins it completely
         const scrollDelta = -rect.top;
-        contactDotsImg.style.transform = `translate3d(0, ${scrollDelta * 0.9}px, 0)`;
+        // Counter-translate to keep dots visually stationary relative to screen
+        contactDotsImg.style.transform = `translate3d(0, ${scrollDelta * 0.85}px, 0)`;
       }
     };
 
@@ -203,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     10. FAQ Accordion & Smooth Scroll to Contact Form
+     10. Section 10: FAQ Accordion & Smooth Scroll
      ------------------------------------------------------------------------ */
   const faqItems = document.querySelectorAll('.faq-item');
 
@@ -214,7 +195,6 @@ document.addEventListener('DOMContentLoaded', () => {
     trigger.addEventListener('click', () => {
       const isActive = item.classList.contains('active');
 
-      // Close all other items for a clean single-open accordion feel
       faqItems.forEach(otherItem => {
         if (otherItem !== item) {
           otherItem.classList.remove('active');
@@ -222,7 +202,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
-      // Toggle current item
       if (isActive) {
         item.classList.remove('active');
         trigger.setAttribute('aria-expanded', 'false');
@@ -241,7 +220,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const contactTarget = document.getElementById('contact');
       if (contactTarget) {
         contactTarget.scrollIntoView({ behavior: 'smooth' });
-        // Focus first input for accessibility
         setTimeout(() => {
           document.getElementById('userName')?.focus();
         }, 500);
@@ -250,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     Form Validation & Interactive Feedback
+     Contact Form Validation
      ------------------------------------------------------------------------ */
   const leadForm = document.getElementById('leadForm');
   const userName = document.getElementById('userName');
@@ -264,25 +242,19 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       let isValid = true;
 
-      // Validate Name
       if (!userName.value.trim()) {
         if (nameError) nameError.textContent = 'Please enter your name';
-        userName.classList.add('invalid');
         isValid = false;
       } else {
         if (nameError) nameError.textContent = '';
-        userName.classList.remove('invalid');
       }
 
-      // Validate Email
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!userEmail.value.trim() || !emailPattern.test(userEmail.value.trim())) {
         if (emailError) emailError.textContent = 'Please enter a valid corporate email';
-        userEmail.classList.add('invalid');
         isValid = false;
       } else {
         if (emailError) emailError.textContent = '';
-        userEmail.classList.remove('invalid');
       }
 
       if (isValid) {
