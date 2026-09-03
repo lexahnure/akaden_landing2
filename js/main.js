@@ -13,19 +13,75 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ------------------------------------------------------------------------
-     1. Sticky Site Header with Border Accent on Scroll
+     1. Floating Island Header with Dynamic Theme based on Section Background
      ------------------------------------------------------------------------ */
   const header = document.getElementById('header');
   const mobileMenuBtn = document.getElementById('mobileMenuBtn');
   const primaryNav = document.getElementById('primaryNav');
 
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 20) {
-      header?.classList.add('scrolled');
+  // Dark sections to detect
+  const shiftSection = document.getElementById('shift');
+  const meanwhileTrack = document.getElementById('meanwhileTrack');
+  const meanwhileDarkBg = document.getElementById('meanwhileDarkBg');
+  const siteFooter = document.querySelector('.site-footer');
+
+  const updateHeaderIslandState = () => {
+    if (!header) return;
+
+    const scrollY = window.scrollY;
+    // Island mode activates when scrolled down past 40px
+    const isIsland = scrollY > 40;
+    if (isIsland) {
+      header.classList.add('is-island');
     } else {
-      header?.classList.remove('scrolled');
+      header.classList.remove('is-island');
     }
-  }, { passive: true });
+
+    // Probe point at header's vertical center in the viewport
+    const probeY = 44;
+    let isDark = false;
+
+    // 1. Check The Shift section (dark background #101429)
+    if (shiftSection) {
+      const rect = shiftSection.getBoundingClientRect();
+      if (rect.top <= probeY && rect.bottom > probeY) {
+        isDark = true;
+      }
+    }
+
+    // 2. Check Meanwhile in 2026 track (becomes dark when dark bg slides up)
+    if (meanwhileTrack && !isDark) {
+      const rect = meanwhileTrack.getBoundingClientRect();
+      if (rect.top <= probeY && rect.bottom > probeY) {
+        if (meanwhileDarkBg) {
+          const darkRect = meanwhileDarkBg.getBoundingClientRect();
+          if (darkRect.top <= probeY && darkRect.bottom > probeY) {
+            isDark = true;
+          }
+        }
+      }
+    }
+
+    // 3. Check Footer (dark background #0f172a)
+    if (siteFooter && !isDark) {
+      const rect = siteFooter.getBoundingClientRect();
+      if (rect.top <= probeY && rect.bottom > probeY) {
+        isDark = true;
+      }
+    }
+
+    if (isDark) {
+      header.classList.remove('theme-light');
+      header.classList.add('theme-dark');
+    } else {
+      header.classList.remove('theme-dark');
+      header.classList.add('theme-light');
+    }
+  };
+
+  window.addEventListener('scroll', updateHeaderIslandState, { passive: true });
+  window.addEventListener('resize', updateHeaderIslandState, { passive: true });
+  updateHeaderIslandState();
 
   // Mobile menu toggle
   if (mobileMenuBtn && primaryNav) {
@@ -87,9 +143,6 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ------------------------------------------------------------------------
      3. Section 3: Meanwhile in 2026 (Sticky with Dark Background sliding UNDER)
      ------------------------------------------------------------------------ */
-  const meanwhileTrack = document.getElementById('meanwhileTrack');
-  const meanwhileDarkBg = document.getElementById('meanwhileDarkBg');
-
   if (meanwhileTrack && meanwhileDarkBg) {
     const handleMeanwhileScroll = () => {
       const trackRect = meanwhileTrack.getBoundingClientRect();

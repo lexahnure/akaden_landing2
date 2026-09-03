@@ -122,23 +122,84 @@
 /* --------------------------------------------------------------------------
    Sticky Site Header
    -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------
+   Sticky Floating Island Header
+   -------------------------------------------------------------------------- */
 .site-header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  width: 100%;
   height: var(--header-height);
-  background: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(226, 232, 240, 0.8);
   z-index: 100;
   display: flex;
   align-items: center;
+  transition: top 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              left 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-radius 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.3s ease,
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
 }
 
-.site-header.scrolled {
-  border-bottom-color: rgba(200, 210, 225, 0.9);
+/* Island Mode when Scrolled */
+.site-header.is-island {
+  top: 14px;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  width: calc(100% - 48px);
+  max-width: 1100px;
+  height: 60px;
+  border-radius: 999px;
+  border-bottom: none;
+}
+
+/* Island Light Theme */
+.site-header.theme-light {
+  background-color: rgba(255, 255, 255, 0.90);
+  border: 1px solid rgba(203, 213, 225, 0.85);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.10);
+}
+
+.site-header.theme-light .nav-link {
+  color: var(--color-text-body);
+}
+
+.site-header.theme-light .nav-link:hover {
+  color: var(--color-primary-blue);
+}
+
+.site-header.theme-light .mobile-menu-toggle span {
+  background-color: var(--color-text-dark);
+}
+
+/* Island Dark Theme (over dark sections like The Shift, dark meanwhile, footer) */
+.site-header.theme-dark {
+  background-color: rgba(16, 20, 41, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+}
+
+.site-header.theme-dark .nav-link {
+  color: rgba(240, 245, 255, 0.85);
+}
+
+.site-header.theme-dark .nav-link:hover {
+  color: #ffffff;
+}
+
+.site-header.theme-dark .mobile-menu-toggle span {
+  background-color: #ffffff;
 }
 
 .header-container {
@@ -149,6 +210,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  transition: padding 0.3s ease;
+}
+
+.site-header.is-island .header-container {
+  padding: 0 16px 0 24px;
 }
 
 .brand-logo {
@@ -206,6 +272,7 @@
   width: 100%;
   background-color: var(--color-text-dark);
   border-radius: 2px;
+  transition: background-color 0.2s ease;
 }
 
 /* --------------------------------------------------------------------------
@@ -1537,6 +1604,28 @@
     border-bottom: 1px solid #e2e8f0;
     transform: translateY(-150%);
     transition: transform 0.3s ease;
+  }
+
+  .site-header.is-island {
+    width: calc(100% - 24px);
+    top: 10px;
+    height: 56px;
+  }
+
+  .site-header.is-island .header-container {
+    padding: 0 12px 0 18px;
+  }
+
+  .site-header.theme-dark .nav-links {
+    background-color: #101429;
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .site-header.is-island .nav-links {
+    top: 72px;
+    border-radius: 16px;
+    left: 12px;
+    right: 12px;
   }
 
   .nav-links.active {
