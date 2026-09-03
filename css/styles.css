@@ -760,6 +760,14 @@
   justify-content: center;
 }
 
+.handle-icon-desktop {
+  display: block;
+}
+
+.handle-icon-mobile {
+  display: none;
+}
+
 .shift-top-tag {
   position: absolute;
   top: 24px;
@@ -1667,7 +1675,41 @@
     gap: 20px;
   }
 
+  /* Section 4: The Shift - Comparing Workflows goes vertically on mobile */
+  .shift-sticky-center {
+    top: calc(50vh - 170px);
+  }
+
   .shift-diagram-card {
-    height: 380px;
+    height: 340px;
+  }
+
+  .shift-reveal-line {
+    top: 0;
+    bottom: auto;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 2px;
+    transform: translateY(-50%);
+  }
+
+  .reveal-line-bar {
+    top: 0;
+    bottom: auto;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(0, 221, 255, 0.1) 0%, #00ddff 35%, #8f1fff 65%, rgba(143, 31, 255, 0.1) 100%);
+    box-shadow: 0 0 12px #00ddff, 0 0 24px rgba(143, 31, 255, 0.6);
+  }
+
+  .handle-icon-desktop {
+    display: none;
+  }
+
+  .handle-icon-mobile {
+    display: block;
   }
 }

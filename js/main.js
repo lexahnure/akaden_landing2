@@ -189,43 +189,86 @@ document.addEventListener('DOMContentLoaded', () => {
         // During the remaining 25% (quarter of scroll), it remains pinned in the center
         // with the new Agentic SDLC scheme fully revealed!
         const revealProgress = Math.min(progress / 0.75, 1);
-        const dividerPercent = (100 - (revealProgress * 100)).toFixed(2);
-        const numDivider = parseFloat(dividerPercent);
+        const isMobile = window.innerWidth <= 768;
 
-        // Clip Scheme 2 so it is visible to the right of the divider
-        scheme2.style.clipPath = `inset(0 0 0 ${dividerPercent}%)`;
-        shiftRevealLine.style.left = `${dividerPercent}%`;
+        if (isMobile) {
+          // MOBILE: Comparing workflows runs vertically (top to bottom)
+          const verticalPercent = (revealProgress * 100).toFixed(2);
+          const numVertical = parseFloat(verticalPercent);
 
-        // Reveal line disappears once it reaches the left end (and stays hidden during the post-reveal quarter)
-        if (numDivider <= 1.0 || progress >= 0.75) {
-          shiftRevealLine.style.opacity = '0';
-        } else {
-          shiftRevealLine.style.opacity = '1';
-        }
+          // Scheme 2 reveals from top to bottom
+          scheme2.style.clipPath = `inset(0 0 ${100 - numVertical}% 0)`;
+          shiftRevealLine.style.top = `${verticalPercent}%`;
+          shiftRevealLine.style.left = '0';
 
-        if (numDivider > 80) {
-          if (shiftTagText) shiftTagText.textContent = 'Manual SDLC';
-          if (shiftTagPulse) shiftTagPulse.style.backgroundColor = '#ff4d4f';
-          if (shiftCaption) {
-            shiftCaption.innerHTML = '<strong>Manual SDLC (Old Workflow).</strong> Hand-configure every workflow and integration manually.';
+          // Reveal line disappears once it reaches the bottom end (>= 98.5%)
+          if (numVertical >= 98.5 || progress >= 0.75) {
+            shiftRevealLine.style.opacity = '0';
+          } else {
+            shiftRevealLine.style.opacity = '1';
           }
-        } else if (numDivider < 15 || progress >= 0.75) {
-          if (shiftTagText) shiftTagText.textContent = 'Agentic SDLC AKADEN';
-          if (shiftTagPulse) shiftTagPulse.style.backgroundColor = '#00ddff';
-          if (shiftCaption) {
-            shiftCaption.innerHTML = '<strong>Agentic SDLC AKADEN (New Workflow).</strong> Specialized AI agents execute bounded engineering steps under human supervision.';
+
+          if (numVertical < 20) {
+            if (shiftTagText) shiftTagText.textContent = 'Manual SDLC';
+            if (shiftTagPulse) shiftTagPulse.style.backgroundColor = '#ff4d4f';
+            if (shiftCaption) {
+              shiftCaption.innerHTML = '<strong>Manual SDLC (Old Workflow).</strong> Hand-configure every workflow and integration manually.';
+            }
+          } else if (numVertical > 85 || progress >= 0.75) {
+            if (shiftTagText) shiftTagText.textContent = 'Agentic SDLC AKADEN';
+            if (shiftTagPulse) shiftTagPulse.style.backgroundColor = '#00ddff';
+            if (shiftCaption) {
+              shiftCaption.innerHTML = '<strong>Agentic SDLC AKADEN (New Workflow).</strong> Specialized AI agents execute bounded engineering steps under human supervision.';
+            }
+          } else {
+            if (shiftTagText) shiftTagText.textContent = 'Comparing Workflows (' + Math.round(numVertical) + '%)';
+            if (shiftTagPulse) shiftTagPulse.style.backgroundColor = '#e52ea8';
+            if (shiftCaption) {
+              shiftCaption.innerHTML = '<strong>The Shift.</strong> Only the engineer\'s position changes — from manual execution to supervising AI agents.';
+            }
           }
         } else {
-          if (shiftTagText) shiftTagText.textContent = 'Comparing Workflows (' + Math.round(100 - numDivider) + '%)';
-          if (shiftTagPulse) shiftTagPulse.style.backgroundColor = '#e52ea8';
-          if (shiftCaption) {
-            shiftCaption.innerHTML = '<strong>The Shift.</strong> Only the engineer\'s position changes — from manual execution to supervising AI agents.';
+          // DESKTOP: Comparing workflows runs horizontally (right to left)
+          const dividerPercent = (100 - (revealProgress * 100)).toFixed(2);
+          const numDivider = parseFloat(dividerPercent);
+
+          // Scheme 2 reveals from right to left
+          scheme2.style.clipPath = `inset(0 0 0 ${dividerPercent}%)`;
+          shiftRevealLine.style.left = `${dividerPercent}%`;
+          shiftRevealLine.style.top = '0';
+
+          // Reveal line disappears once it reaches the left end (and stays hidden during the post-reveal quarter)
+          if (numDivider <= 1.0 || progress >= 0.75) {
+            shiftRevealLine.style.opacity = '0';
+          } else {
+            shiftRevealLine.style.opacity = '1';
+          }
+
+          if (numDivider > 80) {
+            if (shiftTagText) shiftTagText.textContent = 'Manual SDLC';
+            if (shiftTagPulse) shiftTagPulse.style.backgroundColor = '#ff4d4f';
+            if (shiftCaption) {
+              shiftCaption.innerHTML = '<strong>Manual SDLC (Old Workflow).</strong> Hand-configure every workflow and integration manually.';
+            }
+          } else if (numDivider < 15 || progress >= 0.75) {
+            if (shiftTagText) shiftTagText.textContent = 'Agentic SDLC AKADEN';
+            if (shiftTagPulse) shiftTagPulse.style.backgroundColor = '#00ddff';
+            if (shiftCaption) {
+              shiftCaption.innerHTML = '<strong>Agentic SDLC AKADEN (New Workflow).</strong> Specialized AI agents execute bounded engineering steps under human supervision.';
+            }
+          } else {
+            if (shiftTagText) shiftTagText.textContent = 'Comparing Workflows (' + Math.round(100 - numDivider) + '%)';
+            if (shiftTagPulse) shiftTagPulse.style.backgroundColor = '#e52ea8';
+            if (shiftCaption) {
+              shiftCaption.innerHTML = '<strong>The Shift.</strong> Only the engineer\'s position changes — from manual execution to supervising AI agents.';
+            }
           }
         }
       }
     };
 
     window.addEventListener('scroll', handleShiftWipe, { passive: true });
+    window.addEventListener('resize', handleShiftWipe, { passive: true });
     handleShiftWipe();
   }
 
