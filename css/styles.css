@@ -572,8 +572,12 @@
 .meanwhile-inner-card {
   background-color: var(--color-bg-dark);
   border-radius: var(--radius-inner);
-  padding: 32px 36px;
+  padding: 36px 40px;
   color: var(--color-text-white);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .meanwhile-tag {
@@ -582,19 +586,10 @@
   font-weight: 700;
   line-height: 27px;
   color: var(--color-text-white);
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.meanwhile-tag::before {
-  content: "";
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #00ddff;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .meanwhile-body {
@@ -603,7 +598,9 @@
   font-weight: 400;
   line-height: 27px;
   color: var(--color-text-white-sub);
-  margin-bottom: 16px;
+  margin-bottom: 24px;
+  text-align: center;
+  max-width: 800px;
 }
 
 .meanwhile-punchline {
@@ -611,7 +608,9 @@
   font-size: 18px;
   font-weight: 700;
   line-height: 27px;
-  color: var(--color-text-white-sub);
+  color: var(--color-text-white);
+  text-align: center;
+  max-width: 800px;
 }
 
 .meanwhile-dark-rising-bg {
