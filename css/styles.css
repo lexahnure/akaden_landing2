@@ -572,7 +572,8 @@
   top: 72px;
   z-index: 15;
   background-color: var(--color-bg-dark);
-  padding: 30px 0 20px;
+  padding-top: 60px; /* doubled padding from meanwhile to the shift */
+  padding-bottom: 100px; /* 100px padding to the bottom border of the dark section */
 }
 
 .section-shift {
@@ -661,7 +662,8 @@
   z-index: 10;
   transform: translateX(-50%);
   pointer-events: none;
-  will-change: left;
+  will-change: left, opacity;
+  transition: opacity 0.25s ease;
 }
 
 .reveal-line-bar {
@@ -1159,6 +1161,7 @@
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
+  mix-blend-mode: overlay;
 }
 
 .contact-dots-img {
@@ -1168,6 +1171,7 @@
   width: 1093px;
   height: 1249px;
   opacity: 0.75;
+  mix-blend-mode: overlay;
   will-change: transform;
 }
 
@@ -1205,7 +1209,9 @@
 }
 
 .proof-box {
-  background-color: var(--color-bg-white);
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: var(--radius-card);
   padding: 24px;
 }
@@ -1348,9 +1354,10 @@
 }
 
 .faq-item.active {
-  background-color: var(--color-bg-white);
-  border: 1px solid var(--color-border-accent);
-  box-shadow: var(--shadow-faq-active);
+  border-radius: 24px;
+  border: 1px solid var(--blue-A300, #ABBDE0);
+  background: var(--white, #FFF);
+  box-shadow: 0 8px 24px -10px rgba(0, 0, 0, 0.15);
   margin: 6px 0;
 }
 

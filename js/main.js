@@ -139,8 +139,14 @@ document.addEventListener('DOMContentLoaded', () => {
         scheme2.style.clipPath = `inset(0 0 0 ${dividerPercent}%)`;
         shiftRevealLine.style.left = `${dividerPercent}%`;
 
-        // Update tag and caption based on position
         const numDivider = parseFloat(dividerPercent);
+
+        // Reveal line disappears at the end on the left
+        if (numDivider <= 1.5) {
+          shiftRevealLine.style.opacity = '0';
+        } else {
+          shiftRevealLine.style.opacity = '1';
+        }
         if (numDivider > 80) {
           if (shiftTagText) shiftTagText.textContent = 'Manual SDLC';
           if (shiftTagPulse) shiftTagPulse.style.backgroundColor = '#ff4d4f';

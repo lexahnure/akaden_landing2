@@ -42,9 +42,12 @@
   --gradient-contact-form-outer: radial-gradient(circle at 0% 0%, #00ddff 0%, rgba(0, 221, 255, 0) 55%), radial-gradient(circle at 0% 100%, #ff9d00 0%, rgba(255, 157, 0, 0) 55%), radial-gradient(circle at 50% 0%, rgba(32, 0, 97, 0) 30%, #8f1fff 100%), rgb(171, 189, 224);
   --gradient-questions-left: linear-gradient(90deg, #C2E0FF 0%, #C2C2FF 49.52%, #EABFFF 100%);
 
+  --white: #FFFFFF;
+  --blue-A300: #ABBDE0;
+
   /* Only Two Drop Shadows Exist in Figma */
   --shadow-form-card: 0px 12px 30px rgba(0, 0, 0, 0.20);
-  --shadow-faq-active: 0px 8px 24px rgba(0, 0, 0, 0.15);
+  --shadow-faq-active: 0 8px 24px -10px rgba(0, 0, 0, 0.15);
 
   /* Radii */
   --radius-benefit: 14px;
