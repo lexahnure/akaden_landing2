@@ -98,10 +98,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const scrollableDist = trackRect.height - windowHeight;
       if (scrollableDist > 0) {
         const scrolled = -trackRect.top;
-        const progress = Math.min(Math.max(scrolled / scrollableDist, 0), 1);
+        // Stays on white half as long: dark background rises twice as fast
+        const progress = Math.min(Math.max(scrolled / (scrollableDist * 0.5), 0), 1);
 
-        // Dark background rises up smoothly
-        const targetHeight = Math.min(progress * 100, 75);
+        // Dark background rises up smoothly and covers the track
+        const targetHeight = Math.min(progress * 100, 85);
         meanwhileDarkBg.style.height = `${targetHeight}vh`;
       }
     };

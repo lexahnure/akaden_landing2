@@ -479,9 +479,9 @@
    -------------------------------------------------------------------------- */
 .meanwhile-scroll-track {
   position: relative;
-  min-height: 150vh;
+  min-height: 110vh;
   background-color: var(--color-bg-white);
-  padding-top: 60px;
+  padding-top: 40px;
 }
 
 .meanwhile-sticky-container {
