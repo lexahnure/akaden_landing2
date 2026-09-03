@@ -85,17 +85,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Mobile menu toggle
   if (mobileMenuBtn && primaryNav) {
+    const closeMobileMenu = () => {
+      primaryNav.classList.remove('active');
+      mobileMenuBtn.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('menu-open');
+    };
+
     mobileMenuBtn.addEventListener('click', () => {
       const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
-      mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
-      primaryNav.classList.toggle('active');
+      const nextExpanded = !isExpanded;
+      mobileMenuBtn.setAttribute('aria-expanded', String(nextExpanded));
+      primaryNav.classList.toggle('active', nextExpanded);
+      document.body.classList.toggle('menu-open', nextExpanded);
     });
 
     primaryNav.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        primaryNav.classList.remove('active');
-        mobileMenuBtn.setAttribute('aria-expanded', 'false');
-      });
+      link.addEventListener('click', closeMobileMenu);
     });
   }
 
@@ -275,17 +280,49 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ------------------------------------------------------------------------
      5. Section 5: What Akaden Actually Is - Fast Sequential Reveal on Scroll:
         1 картка > плюс > 2 картка > плюс > 3 картка > дорівнює > 4 картка сума
+        On mobile: pluses and equals are positioned absolute between cards
      ------------------------------------------------------------------------ */
   const formulaContainer = document.getElementById('formulaContainer');
 
   if (formulaContainer) {
+    const part1 = formulaContainer.querySelector('.formula-part[data-reveal="1"]');
+    const part2 = formulaContainer.querySelector('.formula-part[data-reveal="2"]');
+    const part3 = formulaContainer.querySelector('.formula-part[data-reveal="3"]');
+    const opPlus1 = formulaContainer.querySelector('.op-plus-1');
+    const opPlus2 = formulaContainer.querySelector('.op-plus-2');
+    const opEquals = formulaContainer.querySelector('.op-equals');
+
+    const updateFormulaOperatorsPosition = () => {
+      if (window.innerWidth <= 1024) {
+        if (part1 && opPlus1) {
+          opPlus1.style.top = `${part1.offsetTop + part1.offsetHeight + 6}px`;
+          opPlus1.style.left = '50%';
+        }
+        if (part2 && opPlus2) {
+          opPlus2.style.top = `${part2.offsetTop + part2.offsetHeight + 6}px`;
+          opPlus2.style.left = '50%';
+        }
+        if (part3 && opEquals) {
+          opEquals.style.top = `${part3.offsetTop + part3.offsetHeight + 6}px`;
+          opEquals.style.left = '50%';
+        }
+      } else {
+        if (opPlus1) { opPlus1.style.top = ''; opPlus1.style.left = ''; }
+        if (opPlus2) { opPlus2.style.top = ''; opPlus2.style.left = ''; }
+        if (opEquals) { opEquals.style.top = ''; opEquals.style.left = ''; }
+      }
+    };
+
+    window.addEventListener('resize', updateFormulaOperatorsPosition, { passive: true });
+    setTimeout(updateFormulaOperatorsPosition, 60);
+
     const sequenceElements = [
-      formulaContainer.querySelector('.formula-part[data-reveal="1"]'),
-      formulaContainer.querySelector('.op-plus-1'),
-      formulaContainer.querySelector('.formula-part[data-reveal="2"]'),
-      formulaContainer.querySelector('.op-plus-2'),
-      formulaContainer.querySelector('.formula-part[data-reveal="3"]'),
-      formulaContainer.querySelector('.op-equals'),
+      part1,
+      opPlus1,
+      part2,
+      opPlus2,
+      part3,
+      opEquals,
       formulaContainer.querySelector('.formula-result')
     ].filter(Boolean);
 
@@ -295,6 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
       entries.forEach(entry => {
         if (entry.isIntersecting && !hasRevealedFormula) {
           hasRevealedFormula = true;
+          updateFormulaOperatorsPosition();
           // Step through items quite fast one after another (130ms delay each)
           sequenceElements.forEach((el, index) => {
             setTimeout(() => {
@@ -304,7 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.25 });
+    }, { threshold: 0.15 });
 
     formulaObserver.observe(formulaContainer);
   }

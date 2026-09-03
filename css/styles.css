@@ -154,10 +154,10 @@
 /* Island Mode when Scrolled */
 .site-header.is-island {
   top: 14px;
-  left: 50%;
-  right: auto;
-  transform: translateX(-50%);
-  width: calc(100% - 48px);
+  left: 24px;
+  right: 24px;
+  margin: 0 auto;
+  width: auto;
   max-width: 1100px;
   height: 60px;
   border-radius: 999px;
@@ -1562,14 +1562,24 @@
     line-height: 1.1;
   }
 
+  /* Section 5: Pluses and equals on absolute between cards, 12px gap */
   .formula-cards-wrapper {
     flex-direction: column;
+    gap: 12px;
+    margin-bottom: 12px;
+    position: relative;
   }
 
   .op-plus-1, .op-plus-2, .op-equals {
-    position: static;
-    transform: none;
-    margin: 8px auto;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.6);
+    z-index: 5;
+    margin: 0;
+  }
+
+  .op-plus-1.revealed, .op-plus-2.revealed, .op-equals.revealed {
+    transform: translate(-50%, -50%) scale(1);
   }
 
   .formula-part {
@@ -1599,23 +1609,22 @@
 }
 
 @media (max-width: 768px) {
-  .nav-links {
-    position: fixed;
-    top: var(--header-height);
-    left: 0;
-    right: 0;
-    background: #ffffff;
-    flex-direction: column;
-    padding: 24px;
-    gap: 20px;
-    border-bottom: 1px solid #e2e8f0;
-    transform: translateY(-150%);
-    transition: transform 0.3s ease;
+  body.menu-open {
+    overflow: hidden;
+  }
+
+  .site-header {
+    z-index: 100;
   }
 
   .site-header.is-island {
-    width: calc(100% - 24px);
     top: 10px;
+    left: 12px;
+    right: 12px;
+    margin: 0 auto;
+    width: auto;
+    max-width: none;
+    transform: none;
     height: 56px;
   }
 
@@ -1623,24 +1632,62 @@
     padding: 0 12px 0 18px;
   }
 
-  .site-header.theme-dark .nav-links {
-    background-color: #101429;
-    border-color: rgba(255, 255, 255, 0.15);
-  }
-
-  .site-header.is-island .nav-links {
-    top: 72px;
-    border-radius: 16px;
-    left: 12px;
-    right: 12px;
+  /* Full screen mobile menu that opens cleanly below the header bar */
+  .nav-links {
+    position: fixed;
+    top: 68px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: calc(100vh - 68px);
+    height: calc(100dvh - 68px);
+    background-color: #ffffff;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    gap: 28px;
+    z-index: 90;
+    border-bottom: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-16px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
   }
 
   .nav-links.active {
+    opacity: 1;
+    visibility: visible;
     transform: translateY(0);
+  }
+
+  .site-header.theme-dark .nav-links {
+    background-color: #101429;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .nav-link {
+    font-size: 20px;
+    font-weight: 600;
   }
 
   .mobile-menu-toggle {
     display: flex;
+    z-index: 10;
+  }
+
+  .mobile-menu-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .mobile-menu-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-menu-toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
   }
 
   .hero-heading {
@@ -1674,7 +1721,18 @@
     gap: 20px;
   }
 
-  /* Section 4: The Shift - Comparing Workflows goes vertically on mobile */
+  /* Section 3: Meanwhile on mobile - outer card padding 4px */
+  .meanwhile-outer-card {
+    padding: 4px;
+    border-radius: 24px;
+  }
+
+  .meanwhile-inner-card {
+    border-radius: 20px;
+    padding: 24px 18px;
+  }
+
+  /* Section 4: The Shift - text below schemes, never covering them */
   .shift-sticky-center {
     top: calc(50vh - 170px);
   }
@@ -1683,9 +1741,14 @@
     height: 340px;
   }
 
+  .shift-scheme-pane {
+    bottom: 85px;
+    height: auto;
+  }
+
   .shift-reveal-line {
     top: 0;
-    bottom: auto;
+    bottom: 85px;
     left: 0;
     right: 0;
     width: 100%;
@@ -1704,11 +1767,47 @@
     box-shadow: 0 0 12px #00ddff, 0 0 24px rgba(143, 31, 255, 0.6);
   }
 
+  .shift-bottom-bar {
+    height: 85px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .shift-bottom-bar p {
+    font-size: 13px;
+    line-height: 18px;
+  }
+
   .handle-icon-desktop {
     display: none;
   }
 
   .handle-icon-mobile {
     display: block;
+  }
+
+  /* Section 7: Why Not AI - Checkboxes to top, 36x36 */
+  .diff-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .diff-card-icon-wrap {
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+  }
+
+  .diff-check-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Section 9: Contact Form - Wrapper padding 24px on mobile */
+  .contact-form-inner {
+    padding: 24px;
   }
 }
