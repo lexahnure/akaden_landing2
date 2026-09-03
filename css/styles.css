@@ -699,14 +699,14 @@
   background-color: rgb(229, 236, 255);
   background-image: var(--gradient-formula);
   border-radius: var(--radius-card);
-  padding: 32px;
+  padding: 8px;
 }
 
 .formula-cards-wrapper {
   position: relative;
   display: flex;
   align-items: stretch;
-  gap: 20px;
+  gap: 12px;
   margin-bottom: 24px;
 }
 
@@ -766,20 +766,20 @@
 }
 
 .op-plus-1 {
-  left: calc(33.333% - 10px);
+  left: calc(33.333% - 2px);
   top: 50%;
   transform: translate(-50%, -50%);
 }
 
 .op-plus-2 {
-  left: calc(66.666% + 10px);
+  left: calc(66.666% + 2px);
   top: 50%;
   transform: translate(-50%, -50%);
 }
 
 .op-equals {
   left: 50%;
-  bottom: -32px;
+  bottom: -20px;
   transform: translate(-50%, 50%);
 }
 
