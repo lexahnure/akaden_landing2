@@ -40,7 +40,7 @@
   --gradient-what-it-does-bg: linear-gradient(180deg, rgb(248, 250, 252) 0%, rgb(255, 255, 255) 100%);
   --gradient-contact-bg: radial-gradient(circle at 0% 100%, rgb(255, 157, 0) 0%, rgba(32, 0, 97, 0) 55%), linear-gradient(180deg, rgba(15, 98, 254, 0.20) 15%, rgba(81, 69, 229, 0.20) 35%, rgba(229, 46, 168, 0.10) 75%, rgba(255, 255, 255, 0.15) 100%);
   --gradient-contact-form-outer: radial-gradient(circle at 0% 0%, #00ddff 0%, rgba(0, 221, 255, 0) 55%), radial-gradient(circle at 0% 100%, #ff9d00 0%, rgba(255, 157, 0, 0) 55%), radial-gradient(circle at 50% 0%, rgba(32, 0, 97, 0) 30%, #8f1fff 100%), rgb(171, 189, 224);
-  --gradient-questions-left: linear-gradient(135deg, rgb(103, 60, 233) 0%, rgb(41, 95, 204) 100%), linear-gradient(90deg, rgb(194, 224, 255) 0%, rgb(194, 194, 255) 50%, rgb(234, 191, 255) 100%);
+  --gradient-questions-left: linear-gradient(90deg, #C2E0FF 0%, #C2C2FF 49.52%, #EABFFF 100%);
 
   /* Only Two Drop Shadows Exist in Figma */
   --shadow-form-card: 0px 12px 30px rgba(0, 0, 0, 0.20);
