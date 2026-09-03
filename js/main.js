@@ -112,45 +112,59 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     4. Section 4: The Shift - Swap between Manual SDLC and Agentic SDLC
+     4. Section 4: The Shift - Sticky Reveal Line wipes from Right to Left
      ------------------------------------------------------------------------ */
-  const shiftDisplay = document.getElementById('shiftDisplay');
-  const scheme1 = document.getElementById('scheme1');
+  const shiftTrack = document.getElementById('shiftTrack');
   const scheme2 = document.getElementById('scheme2');
+  const shiftRevealLine = document.getElementById('shiftRevealLine');
   const shiftTagText = document.getElementById('shiftTagText');
+  const shiftTagPulse = document.getElementById('shiftTagPulse');
   const shiftCaption = document.getElementById('shiftCaption');
 
-  if (shiftDisplay && scheme1 && scheme2) {
-    const handleShiftSwap = () => {
-      const rect = shiftDisplay.getBoundingClientRect();
+  if (shiftTrack && scheme2 && shiftRevealLine) {
+    const handleShiftWipe = () => {
+      const rect = shiftTrack.getBoundingClientRect();
       const windowHeight = window.innerHeight;
+      const scrollableDist = rect.height - windowHeight;
 
-      // Swap when user has scrolled past center of diagram
-      const isPastCenter = rect.top < windowHeight * 0.35;
+      if (scrollableDist > 0) {
+        const scrolled = -rect.top;
+        // Progress goes 0.0 -> 1.0 as user scrolls through track
+        const progress = Math.min(Math.max(scrolled / scrollableDist, 0), 1);
 
-      if (isPastCenter) {
-        if (!scheme2.classList.contains('active')) {
-          scheme1.classList.remove('active');
-          scheme2.classList.add('active');
-          if (shiftTagText) shiftTagText.textContent = 'Agentic SDLC AKADEN';
-          if (shiftCaption) {
-            shiftCaption.innerHTML = '<strong>Agentic SDLC AKADEN.</strong> AI agents sit between the engineer and the systems. The engineer supervises.';
-          }
-        }
-      } else {
-        if (!scheme1.classList.contains('active')) {
-          scheme2.classList.remove('active');
-          scheme1.classList.add('active');
+        // Wipe line moves from right (100%) to left (0%)
+        const dividerPercent = (100 - (progress * 100)).toFixed(2);
+
+        // Clip Scheme 2 so it is visible to the right of the divider
+        scheme2.style.clipPath = `inset(0 0 0 ${dividerPercent}%)`;
+        shiftRevealLine.style.left = `${dividerPercent}%`;
+
+        // Update tag and caption based on position
+        const numDivider = parseFloat(dividerPercent);
+        if (numDivider > 80) {
           if (shiftTagText) shiftTagText.textContent = 'Manual SDLC';
+          if (shiftTagPulse) shiftTagPulse.style.backgroundColor = '#ff4d4f';
           if (shiftCaption) {
-            shiftCaption.innerHTML = '<strong>Manual SDLC (Old Workflow).</strong> Engineer manually handles every pipeline, system connection, and business rule by hand.';
+            shiftCaption.innerHTML = '<strong>Manual SDLC (Old Workflow).</strong> Hand-configure every workflow and integration manually.';
+          }
+        } else if (numDivider < 20) {
+          if (shiftTagText) shiftTagText.textContent = 'Agentic SDLC AKADEN';
+          if (shiftTagPulse) shiftTagPulse.style.backgroundColor = '#00ddff';
+          if (shiftCaption) {
+            shiftCaption.innerHTML = '<strong>Agentic SDLC AKADEN (New Workflow).</strong> Specialized AI agents execute bounded engineering steps under human supervision.';
+          }
+        } else {
+          if (shiftTagText) shiftTagText.textContent = 'Comparing Workflows (' + Math.round(100 - numDivider) + '%)';
+          if (shiftTagPulse) shiftTagPulse.style.backgroundColor = '#e52ea8';
+          if (shiftCaption) {
+            shiftCaption.innerHTML = '<strong>The Shift.</strong> Only the engineer\'s position changes — from manual execution to supervising AI agents.';
           }
         }
       }
     };
 
-    window.addEventListener('scroll', handleShiftSwap, { passive: true });
-    handleShiftSwap();
+    window.addEventListener('scroll', handleShiftWipe, { passive: true });
+    handleShiftWipe();
   }
 
   /* ------------------------------------------------------------------------

@@ -559,19 +559,32 @@
 }
 
 /* --------------------------------------------------------------------------
-   Section 4: The Shift with Dual Image Schemes
+   Section 4: The Shift with Sticky Wipe Reveal (Right to Left)
    -------------------------------------------------------------------------- */
+.shift-scroll-track {
+  position: relative;
+  height: 220vh;
+  background-color: var(--color-bg-dark);
+}
+
+.shift-sticky-wrapper {
+  position: sticky;
+  top: 72px;
+  z-index: 15;
+  background-color: var(--color-bg-dark);
+  padding: 30px 0 20px;
+}
+
 .section-shift {
   background-color: var(--color-bg-dark);
-  padding: 80px 0 120px;
+  padding: 0;
   color: var(--color-text-white);
   position: relative;
-  z-index: 15;
 }
 
 .shift-header {
   text-align: center;
-  margin-bottom: 48px;
+  margin-bottom: 24px;
 }
 
 .shift-title {
@@ -590,7 +603,7 @@
   line-height: 27px;
   color: var(--color-text-white-sub);
   max-width: 800px;
-  margin: 16px auto 0;
+  margin: 12px auto 0;
 }
 
 .shift-display {
@@ -602,11 +615,12 @@
   position: relative;
   width: 100%;
   max-width: 1200px;
-  height: 620px;
+  height: 600px;
   border-radius: var(--radius-card);
   background-color: #000214;
   border: 1px solid var(--color-border-dark);
   overflow: hidden;
+  user-select: none;
 }
 
 .shift-scheme-pane {
@@ -614,19 +628,19 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  transform: scale(0.98);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.shift-scheme-pane.active {
-  opacity: 1;
-  visibility: visible;
-  transform: scale(1);
+.shift-scheme-pane.scheme-1 {
+  z-index: 1;
+}
+
+.shift-scheme-pane.scheme-2 {
+  z-index: 2;
+  clip-path: inset(0 0 0 100%);
+  will-change: clip-path;
 }
 
 .shift-diagram-img {
@@ -634,6 +648,47 @@
   height: 100%;
   object-fit: contain;
   object-position: center;
+  pointer-events: none;
+}
+
+/* Glowing Wipe Reveal Line */
+.shift-reveal-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 100%;
+  width: 2px;
+  z-index: 10;
+  transform: translateX(-50%);
+  pointer-events: none;
+  will-change: left;
+}
+
+.reveal-line-bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(0, 221, 255, 0.1) 0%, #00ddff 35%, #8f1fff 65%, rgba(143, 31, 255, 0.1) 100%);
+  box-shadow: 0 0 12px #00ddff, 0 0 24px rgba(143, 31, 255, 0.6);
+}
+
+.reveal-handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #101429;
+  border: 2px solid #00ddff;
+  box-shadow: 0 0 16px rgba(0, 221, 255, 0.8);
+  color: #00ddff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .shift-top-tag {
@@ -652,14 +707,16 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  z-index: 5;
+  z-index: 12;
+  transition: all 0.2s ease;
 }
 
 .tag-pulse {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background-color: #00ddff;
+  background-color: #ff4d4f;
+  transition: background-color 0.2s ease;
 }
 
 .shift-bottom-bar {
@@ -672,7 +729,7 @@
   -webkit-backdrop-filter: blur(40px);
   padding: 16px 24px;
   text-align: center;
-  z-index: 5;
+  z-index: 12;
 }
 
 .shift-bottom-bar p {
