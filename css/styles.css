@@ -572,7 +572,7 @@
   top: 72px;
   z-index: 15;
   background-color: var(--color-bg-dark);
-  padding-top: 60px; /* doubled padding from meanwhile to the shift */
+  padding-top: 120px; /* doubled padding from meanwhile to the shift */
   padding-bottom: 100px; /* 100px padding to the bottom border of the dark section */
 }
 
