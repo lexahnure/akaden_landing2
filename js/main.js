@@ -1,347 +1,298 @@
-// Akaden Landing Page Interactive Logic
-document.addEventListener("DOMContentLoaded", () => {
-              // Easing function: Ease-In-Out Cubic (Gentle start, fast punchy middle, smooth finish)
-  function easeInOut(t) {
-    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-  }
+/**
+ * Akaden Landing Page Interactive Logic
+ * Fulfills all 10 user requirements with smooth, optimized animations
+ */
 
-  // 0. Hero Scroll Parallax & Fullscreen Black Transition Controller (Faster, snappy ease-in-out)
-  const heroTrack = document.querySelector(".hero-scroll-track");
-  const heroContent = document.querySelector(".hero-content");
-  const heroBezel = document.querySelector(".hero-device-bezel");
-  const heroBlackOverlay = document.querySelector(".hero-black-overlay");
+document.addEventListener('DOMContentLoaded', () => {
 
-  function handleHeroScroll() {
-    if (!heroTrack || !heroContent || !heroBezel) return;
-    const rect = heroTrack.getBoundingClientRect();
-    const trackHeight = heroTrack.offsetHeight - window.innerHeight;
-    if (trackHeight <= 0) return;
+  /* ------------------------------------------------------------------------
+     1. Sticky Site Header with Scroll Shadow
+     ------------------------------------------------------------------------ */
+  const header = document.getElementById('header');
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const primaryNav = document.getElementById('primaryNav');
 
-    // Normalized progress from 0.0 (top) to 1.0 (bottom of track)
-    const scrolled = -rect.top;
-    const progress = Math.min(Math.max(scrolled / trackHeight, 0), 1);
-
-    // Phase 1: Text fades out and floats upward quickly (0.0 -> 0.22 progress)
-    const rawTextProgress = Math.min(progress / 0.22, 1);
-    const textProgress = easeInOut(rawTextProgress);
-    const textOpacity = Math.max(0, 1 - textProgress);
-    const textTranslateY = -textProgress * 80;
-    heroContent.style.opacity = textOpacity.toFixed(3);
-    heroContent.style.transform = `translateY(${textTranslateY.toFixed(1)}px)`;
-    heroContent.style.pointerEvents = textOpacity < 0.05 ? "none" : "auto";
-
-    // Phase 2: Snappy Zoom & Center Transition (Finishes by ~0.60 progress)
-    const isTabletOrMobile = window.innerWidth <= 1024;
-    const baseScale = isTabletOrMobile ? 0.68 : 0.48;
-    const targetScale = isTabletOrMobile ? 1.00 : 0.92;
-    const baseTranslateY = isTabletOrMobile ? 220 : 340;
-
-    const rawZoomProgress = Math.min(Math.max((progress - 0.02) / 0.58, 0), 1);
-    const zoomProgress = easeInOut(rawZoomProgress);
-    const scale = baseScale + (zoomProgress * (targetScale - baseScale));
-    const translateY = (1 - zoomProgress) * baseTranslateY;
-    heroBezel.style.transform = `translateY(${translateY.toFixed(1)}px) scale(${scale.toFixed(3)})`;
-
-    // Phase 3: Black overlay smoothly blankets the screen alongside the zoom (0.16 -> 0.62 progress)
-    const rawOverlayProgress = Math.min(Math.max((progress - 0.16) / 0.46, 0), 1);
-    const overlayProgress = easeInOut(rawOverlayProgress);
-    if (heroBlackOverlay) {
-      heroBlackOverlay.style.opacity = overlayProgress.toFixed(3);
-    }
-
-    // Dissolve bezel border and shadow as screen goes completely black
-    if (overlayProgress > 0.70) {
-      heroBezel.style.borderColor = "transparent";
-      heroBezel.style.boxShadow = "none";
-    } else {
-      heroBezel.style.borderColor = "rgba(255, 255, 255, 0.10)";
-      heroBezel.style.boxShadow = "0 32px 80px rgba(0, 30, 80, 0.20), 0 4px 16px rgba(0, 0, 0, 0.08)";
-    }
-  }
-
-  handleHeroScroll();
-    // 1. Sticky / Island Header Controller & Dark Section Detector
-  const header = document.querySelector(".site-header");
-  const darkSection3 = document.getElementById("use-cases");
-  const darkFooter = document.getElementById("contact");
-
-  function updateHeaderTheme() {
-    if (!header) return;
-
-    // Scrolled state for Island capsule
+  window.addEventListener('scroll', () => {
     if (window.scrollY > 20) {
-      header.classList.add("scrolled");
+      header?.classList.add('scrolled');
     } else {
-      header.classList.remove("scrolled");
+      header?.classList.remove('scrolled');
     }
-
-    const headerRect = header.getBoundingClientRect();
-    const headerCenter = headerRect.top + (headerRect.height / 2);
-
-    let isOverDark = false;
-
-    // 1. Check if over Hero dark phase
-    if (heroTrack) {
-      const heroRect = heroTrack.getBoundingClientRect();
-      const trackHeight = heroTrack.offsetHeight - window.innerHeight;
-      const progress = Math.min(Math.max(-heroRect.top / trackHeight, 0), 1);
-      if (progress > 0.40 && heroRect.bottom > headerCenter) {
-        isOverDark = true;
-      }
-    }
-
-    // 2. Check if over Use Cases (Section 3)
-    if (darkSection3) {
-      const sec3Rect = darkSection3.getBoundingClientRect();
-      if (sec3Rect.top <= headerCenter && sec3Rect.bottom >= headerCenter) {
-        isOverDark = true;
-      }
-    }
-
-    // 3. Check if over Footer
-    if (darkFooter) {
-      const footRect = darkFooter.getBoundingClientRect();
-      if (footRect.top <= headerCenter && footRect.bottom >= headerCenter) {
-        isOverDark = true;
-      }
-    }
-
-    if (isOverDark) {
-      header.classList.add("dark-theme");
-    } else {
-      header.classList.remove("dark-theme");
-    }
-  }
-
-  window.addEventListener("scroll", () => {
-    handleSection2Scroll();
-    handleHeroScroll();
-    updateHeaderTheme();
   }, { passive: true });
 
-  updateHeaderTheme();
+  // Mobile menu toggle
+  if (mobileMenuBtn && primaryNav) {
+    mobileMenuBtn.addEventListener('click', () => {
+      const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+      mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+      primaryNav.classList.toggle('active');
+    });
 
-      // 2. Fullscreen Mobile Drawer Controller & Theme Synchronization
-  const menuToggle = document.querySelector(".mobile-menu-toggle");
-  const mobileDrawer = document.getElementById("mobileDrawer");
-  const drawerClose = document.querySelector(".mobile-drawer-close");
-  const mobileLinks = document.querySelectorAll(".mobile-nav-link, .mobile-drawer-cta, .mobile-drawer-logo");
-
-  function syncDrawerTheme() {
-    if (!mobileDrawer || !header) return;
-    if (header.classList.contains("dark-theme")) {
-      mobileDrawer.classList.add("dark-theme");
-    } else {
-      mobileDrawer.classList.remove("dark-theme");
-    }
-  }
-
-  function openDrawer() {
-    if (!mobileDrawer) return;
-    syncDrawerTheme();
-    mobileDrawer.classList.add("open");
-    mobileDrawer.setAttribute("aria-hidden", "false");
-    if (menuToggle) menuToggle.setAttribute("aria-expanded", "true");
-    document.body.style.overflow = "hidden";
-  }
-
-  function closeDrawer() {
-    if (!mobileDrawer) return;
-    mobileDrawer.classList.remove("open");
-    mobileDrawer.setAttribute("aria-hidden", "true");
-    if (menuToggle) menuToggle.setAttribute("aria-expanded", "false");
-    document.body.style.overflow = "";
-  }
-
-  if (menuToggle) {
-    menuToggle.addEventListener("click", openDrawer);
-  }
-
-  if (drawerClose) {
-    drawerClose.addEventListener("click", closeDrawer);
-  }
-
-  mobileLinks.forEach(link => {
-    link.addEventListener("click", closeDrawer);
-  });
-
-      // 3. Scroll-Driven 5 Steps Synchronization (Desktop Vertical / Tablet-Mobile Horizontal)
-  const stepCards = document.querySelectorAll(".step-card");
-  const visualItems = document.querySelectorAll(".step-visual-item");
-  const lineProgress = document.querySelector(".steps-line-progress");
-  const lineTrack = document.querySelector(".steps-line-track");
-  const sec2 = document.getElementById("how-it-works");
-  const stepsList = document.querySelector(".steps-list");
-
-  function handleSection2Scroll() {
-    if (!sec2 || !stepsList) return;
-
-    if (window.innerWidth <= 1024) {
-      // Tablet / Mobile: Vertical scroll drives horizontal translation of stepsList
-      const rect = sec2.getBoundingClientRect();
-      const trackHeight = sec2.offsetHeight - window.innerHeight;
-      if (trackHeight <= 0) return;
-
-      const scrolled = -rect.top;
-      const progress = Math.min(Math.max(scrolled / trackHeight, 0), 1);
-
-      const maxScrollX = stepsList.scrollWidth - window.innerWidth + 48;
-      if (maxScrollX > 0) {
-        const translateX = progress * maxScrollX;
-        stepsList.style.transform = `translateX(-${translateX.toFixed(1)}px)`;
-      }
-    } else {
-      // Desktop: Reset horizontal transform and calculate active vertical step
-      stepsList.style.transform = "none";
-      const viewportCenter = window.innerHeight * 0.45;
-      let closestIndex = 0;
-      let minDistance = Infinity;
-
-      stepCards.forEach((card, index) => {
-        const rect = card.getBoundingClientRect();
-        const cardCenter = rect.top + rect.height / 2;
-        const distance = Math.abs(cardCenter - viewportCenter);
-
-        if (distance < minDistance) {
-          minDistance = distance;
-          closestIndex = index;
-        }
+    // Close menu when clicking a link
+    primaryNav.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        primaryNav.classList.remove('active');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
       });
-
-      const secRect = sec2.getBoundingClientRect();
-      if (secRect.top <= window.innerHeight * 0.7 && secRect.bottom >= window.innerHeight * 0.2) {
-        setActiveStep(closestIndex);
-      }
-    }
+    });
   }
 
-  function updateProgressLine(index) {
-    if (!lineProgress || !lineTrack || stepCards.length === 0 || window.innerWidth <= 1024) return;
-    const targetCard = stepCards[index];
-    const trackTop = lineTrack.getBoundingClientRect().top + window.pageYOffset;
-    const cardBadge = targetCard.querySelector(".step-badge");
-    const badgeBottom = (cardBadge || targetCard).getBoundingClientRect().top + window.pageYOffset + 18;
-    const targetHeight = Math.max(30, badgeBottom - trackTop);
-    lineProgress.style.height = targetHeight + "px";
-  }
+  /* ------------------------------------------------------------------------
+     2. Classic Flow: Dynamic Repeat Multiplier (x1 -> x2 -> x3 -> x100 -> x ∞)
+     ------------------------------------------------------------------------ */
+  const repeatCard = document.getElementById('repeatCard');
+  const repeatMultiplier = document.getElementById('repeatMultiplier');
+  const repeatBadge = document.getElementById('repeatBadge');
 
-  function setActiveStep(index) {
-    stepCards.forEach((card, i) => {
-      if (i === index) {
-        card.classList.add("active");
+  if (repeatCard && repeatMultiplier) {
+    let currentMultiplier = 'x1';
+
+    const updateRepeatMultiplier = () => {
+      const rect = repeatCard.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // Calculate progress of card through the viewport
+      // When card top hits 85% of viewport -> starts; when bottom hits 25% -> finishes
+      const totalDistance = windowHeight * 0.7;
+      const currentPos = (windowHeight * 0.85) - rect.top;
+      const progress = Math.min(Math.max(currentPos / totalDistance, 0), 1);
+
+      let targetMultiplier = 'x1';
+      let isEscalated = false;
+
+      if (progress > 0.85) {
+        targetMultiplier = 'x ∞';
+        isEscalated = true;
+      } else if (progress > 0.65) {
+        targetMultiplier = 'x100';
+        isEscalated = true;
+      } else if (progress > 0.45) {
+        targetMultiplier = 'x3';
+      } else if (progress > 0.20) {
+        targetMultiplier = 'x2';
       } else {
-        card.classList.remove("active");
+        targetMultiplier = 'x1';
       }
-    });
 
-    visualItems.forEach((item, i) => {
-      if (i === index) {
-        item.classList.add("active");
+      if (targetMultiplier !== currentMultiplier) {
+        currentMultiplier = targetMultiplier;
+        repeatMultiplier.textContent = currentMultiplier;
+
+        if (isEscalated) {
+          repeatMultiplier.classList.add('escalated');
+          if (repeatBadge) repeatBadge.style.transform = 'scale(1.08)';
+        } else {
+          repeatMultiplier.classList.remove('escalated');
+          if (repeatBadge) repeatBadge.style.transform = 'scale(1)';
+        }
+      }
+    };
+
+    window.addEventListener('scroll', updateRepeatMultiplier, { passive: true });
+    updateRepeatMultiplier();
+  }
+
+  /* ------------------------------------------------------------------------
+     3. Meanwhile in 2026: Sticky Pinning & Dark Transition
+     ------------------------------------------------------------------------ */
+  const meanwhileWrapper = document.getElementById('meanwhileWrapper');
+  const shiftSection = document.getElementById('shift');
+
+  if (meanwhileWrapper && shiftSection) {
+    const handleMeanwhileTransition = () => {
+      const shiftRect = shiftSection.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // When shift section approaches within 30% of viewport, darken meanwhile background
+      if (shiftRect.top < windowHeight * 0.5) {
+        meanwhileWrapper.style.backgroundColor = 'var(--color-bg-dark)';
       } else {
-        item.classList.remove("active");
+        meanwhileWrapper.style.backgroundColor = 'var(--color-bg-white)';
       }
-    });
+    };
 
-    updateProgressLine(index);
+    window.addEventListener('scroll', handleMeanwhileTransition, { passive: true });
+    handleMeanwhileTransition();
   }
 
-  // Initial progress line setup
-  setTimeout(() => updateProgressLine(0), 100);
-  window.addEventListener("resize", () => {
-    handleSection2Scroll();
-  });
+  /* ------------------------------------------------------------------------
+     4. The Shift: Scheme Diagram Swap on Scroll
+     ------------------------------------------------------------------------ */
+  const shiftDisplay = document.getElementById('shiftDisplay');
+  const scheme1 = document.getElementById('scheme1');
+  const scheme2 = document.getElementById('scheme2');
+  const shiftTagText = document.getElementById('shiftTagText');
 
-// Click on step card smoothly scrolls and activates it
-  stepCards.forEach((card, index) => {
-    card.addEventListener("click", () => {
-      setActiveStep(index);
-      const headerOffset = 180;
-      const elementPosition = card.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+  if (shiftDisplay && scheme1 && scheme2) {
+    const handleShiftSwap = () => {
+      const rect = shiftDisplay.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
-    });
-  });
+      // When user has scrolled past center of diagram
+      const isPastCenter = rect.top < windowHeight * 0.35;
 
-  // Scroll listener to update active step based on viewport position
-  let ticking = false;
-  window.addEventListener("scroll", () => {
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        const viewportCenter = window.innerHeight * 0.45;
-        let closestIndex = 0;
-        let minDistance = Infinity;
-
-        stepCards.forEach((card, index) => {
-          const rect = card.getBoundingClientRect();
-          const cardCenter = rect.top + rect.height / 2;
-          const distance = Math.abs(cardCenter - viewportCenter);
-
-          if (distance < minDistance) {
-            minDistance = distance;
-            closestIndex = index;
-          }
-        });
-
-        // Only switch if the section is in view
-        const section = document.getElementById("how-it-works");
-        if (section) {
-          const secRect = section.getBoundingClientRect();
-          if (secRect.top <= window.innerHeight * 0.7 && secRect.bottom >= window.innerHeight * 0.2) {
-            setActiveStep(closestIndex);
-          }
+      if (isPastCenter) {
+        if (!scheme2.classList.contains('active')) {
+          scheme1.classList.remove('active');
+          scheme2.classList.add('active');
+          if (shiftTagText) shiftTagText.textContent = 'Agentic Architecture (Scheme 2)';
         }
+      } else {
+        if (!scheme1.classList.contains('active')) {
+          scheme2.classList.remove('active');
+          scheme1.classList.add('active');
+          if (shiftTagText) shiftTagText.textContent = 'New workflow';
+        }
+      }
+    };
 
-        ticking = false;
+    window.addEventListener('scroll', handleShiftSwap, { passive: true });
+    handleShiftSwap();
+  }
+
+  /* ------------------------------------------------------------------------
+     5. What Akaden Actually Is: Staggered Scroll Reveal (Y: -20px -> 0, opacity: 0 -> 1)
+     ------------------------------------------------------------------------ */
+  const formulaContainer = document.getElementById('formulaContainer');
+  const formulaParts = document.querySelectorAll('.formula-part');
+
+  if (formulaContainer && formulaParts.length > 0) {
+    const observerOptions = {
+      root: null,
+      threshold: 0.25
+    };
+
+    const formulaObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          formulaParts.forEach((part, index) => {
+            setTimeout(() => {
+              part.classList.add('revealed');
+            }, index * 180);
+          });
+          observer.unobserve(entry.target);
+        }
       });
-      ticking = true;
-    }
-  }, { passive: true });
+    }, observerOptions);
 
-  // 4. Video Cards Modal / Preview
-  const videoCards = document.querySelectorAll(".video-card");
-  const videoModal = document.getElementById("videoModal");
-  const closeModalBtn = document.querySelector(".video-modal-close");
+    formulaObserver.observe(formulaContainer);
+  }
 
-  if (videoModal) {
-    videoCards.forEach(card => {
-      card.addEventListener("click", () => {
-        videoModal.showModal();
+  /* ------------------------------------------------------------------------
+     9. Contact Us: Parallax Dots (Fixed / Stationary on Scroll)
+     ------------------------------------------------------------------------ */
+  const contactSection = document.getElementById('contact');
+  const contactDotsImg = document.querySelector('.contact-dots-img');
+
+  if (contactSection && contactDotsImg) {
+    const handleParallaxDots = () => {
+      const rect = contactSection.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // If contact section is visible in or near viewport
+      if (rect.top < windowHeight && rect.bottom > 0) {
+        // Counter-translate to keep dots visually stationary
+        // rect.top changes as you scroll; counter-scrolling with 1:1 ratio pins it completely
+        const scrollDelta = -rect.top;
+        contactDotsImg.style.transform = `translate3d(0, ${scrollDelta * 0.9}px, 0)`;
+      }
+    };
+
+    window.addEventListener('scroll', handleParallaxDots, { passive: true });
+    handleParallaxDots();
+  }
+
+  /* ------------------------------------------------------------------------
+     10. FAQ Accordion & Smooth Scroll to Contact Form
+     ------------------------------------------------------------------------ */
+  const faqItems = document.querySelectorAll('.faq-item');
+
+  faqItems.forEach(item => {
+    const trigger = item.querySelector('.faq-trigger');
+    if (!trigger) return;
+
+    trigger.addEventListener('click', () => {
+      const isActive = item.classList.contains('active');
+
+      // Close all other items for a clean single-open accordion feel
+      faqItems.forEach(otherItem => {
+        if (otherItem !== item) {
+          otherItem.classList.remove('active');
+          otherItem.querySelector('.faq-trigger')?.setAttribute('aria-expanded', 'false');
+        }
       });
+
+      // Toggle current item
+      if (isActive) {
+        item.classList.remove('active');
+        trigger.setAttribute('aria-expanded', 'false');
+      } else {
+        item.classList.add('active');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
     });
+  });
 
-    if (closeModalBtn) {
-      closeModalBtn.addEventListener("click", () => {
-        videoModal.close();
-      });
-    }
-
-    videoModal.addEventListener("click", (e) => {
-      if (e.target === videoModal) {
-        videoModal.close();
+  // Talk To Our Team Button: smooth scroll to form
+  const talkToTeamBtn = document.getElementById('talkToTeamBtn');
+  if (talkToTeamBtn) {
+    talkToTeamBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const contactTarget = document.getElementById('contact');
+      if (contactTarget) {
+        contactTarget.scrollIntoView({ behavior: 'smooth' });
+        // Focus first input for accessibility
+        setTimeout(() => {
+          document.getElementById('userName')?.focus();
+        }, 500);
       }
     });
   }
 
-  // 5. Active Nav Link on Scroll (Scroll Spy)
-  const sections = document.querySelectorAll("section[id], header[id]");
-  window.addEventListener("scroll", () => {
-    const scrollY = window.pageYOffset;
-    sections.forEach(current => {
-      const sectionHeight = current.offsetHeight;
-      const sectionTop = current.offsetTop - 120;
-      const sectionId = current.getAttribute("id");
-      const targetNav = document.querySelector(".nav-link[href*=" + sectionId + "]");
-      
-      if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-        if (targetNav) {
-          document.querySelectorAll(".nav-link").forEach(l => l.classList.remove("active"));
-          targetNav.classList.add("active");
+  /* ------------------------------------------------------------------------
+     Form Validation & Interactive Feedback
+     ------------------------------------------------------------------------ */
+  const leadForm = document.getElementById('leadForm');
+  const userName = document.getElementById('userName');
+  const userEmail = document.getElementById('userEmail');
+  const nameError = document.getElementById('nameError');
+  const emailError = document.getElementById('emailError');
+  const formFeedback = document.getElementById('formFeedback');
+
+  if (leadForm) {
+    leadForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let isValid = true;
+
+      // Validate Name
+      if (!userName.value.trim()) {
+        if (nameError) nameError.textContent = 'Please enter your name';
+        userName.classList.add('invalid');
+        isValid = false;
+      } else {
+        if (nameError) nameError.textContent = '';
+        userName.classList.remove('invalid');
+      }
+
+      // Validate Email
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!userEmail.value.trim() || !emailPattern.test(userEmail.value.trim())) {
+        if (emailError) emailError.textContent = 'Please enter a valid corporate email';
+        userEmail.classList.add('invalid');
+        isValid = false;
+      } else {
+        if (emailError) emailError.textContent = '';
+        userEmail.classList.remove('invalid');
+      }
+
+      if (isValid) {
+        if (formFeedback) {
+          formFeedback.textContent = '✓ Thank you! Our team will get in touch with you shortly.';
+          formFeedback.className = 'form-feedback success';
         }
+        leadForm.reset();
       }
     });
-  }, { passive: true });
+  }
+
 });
