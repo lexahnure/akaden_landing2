@@ -14,7 +14,7 @@ html {
 
 body {
   min-height: 100vh;
-  line-height: 1.5;
+  line-height: 150%;
   font-family: var(--font-sans);
   color: var(--color-text-dark);
   background-color: var(--color-bg-white);
@@ -52,7 +52,7 @@ ul, ol {
 
 h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
-  line-height: 1.15;
+  line-height: 115%;
   font-weight: 600;
 }
 
