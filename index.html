@@ -143,9 +143,9 @@
       </div>
     </section>
 
-    <!-- Section 3: Meanwhile in 2026 (Sticky with Dark Background sliding UNDER) -->
-    <div class="meanwhile-scroll-track" id="meanwhileTrack">
-      <div class="meanwhile-sticky-container" id="meanwhileSticky">
+    <!-- Section 3: Meanwhile in 2026 -->
+    <section class="section-meanwhile" id="meanwhile">
+      <div class="container narrow-container">
         <div class="meanwhile-card">
           <div class="meanwhile-tag">MEANWHILE, IN 2026</div>
           <p class="meanwhile-body">
@@ -156,58 +156,51 @@
           </p>
         </div>
       </div>
-      <!-- Black background layer that slides up under the sticky Meanwhile card -->
-      <div class="meanwhile-dark-rising-bg" id="meanwhileDarkBg" aria-hidden="true"></div>
-    </div>
+    </section>
 
-    <!-- Section 4: The Shift with Diagram Sticky in Center -->
+    <!-- Section 4: The Shift -->
     <section class="section-shift" id="shift">
       <div class="container wide-container">
-        <!-- Section header scrolls naturally -->
+        <!-- Section Header -->
         <div class="shift-header">
           <h2 class="shift-title">The shift</h2>
           <p class="shift-subtitle">
             Same institution, same systems — Legacy Systems, Data Warehouse, Ellucian Banner/Colleague/Data Connect, Student Records/SIS, LMS, Future Systems. Only the engineer's position changes.
           </p>
         </div>
-      </div>
 
-      <!-- Dedicated Pinned Track: Diagram stays sticky in center of screen -->
-      <div class="shift-diagram-track" id="shiftTrack">
-        <div class="container wide-container shift-sticky-center">
-          <div class="shift-diagram-card" id="shiftDiagramCard">
-            <!-- Base Diagram: Scheme 1 (Manual SDLC / Old Workflow) -->
-            <div class="shift-scheme-pane scheme-1" id="scheme1">
-              <img src="assets/shift-scheme-manual.png" alt="Manual SDLC - Old Workflow diagram" class="shift-diagram-img" width="1024" height="576" loading="eager">
-            </div>
+        <!-- Comparison Showcase: 2 columns on desktop, tabs on mobile -->
+        <div class="shift-showcase" id="shiftShowcase">
+          <!-- Mobile Tab Switcher (visible on mobile only) -->
+          <div class="shift-tabs-bar" role="tablist" aria-label="Workflow Comparison">
+            <button type="button" class="shift-tab-btn tab-old active" data-tab="old" role="tab" aria-selected="true" aria-controls="schemeOld">
+              <span>OLD WORKFLOW</span>
+            </button>
+            <button type="button" class="shift-tab-btn tab-new" data-tab="new" role="tab" aria-selected="false" aria-controls="schemeNew">
+              <span>NEW WORKFLOW</span>
+            </button>
+          </div>
 
-            <!-- Reveal Overlay Diagram: Scheme 2 (Agentic SDLC AKADEN / New Workflow) -->
-            <div class="shift-scheme-pane scheme-2" id="scheme2">
-              <img src="assets/shift-scheme-agentic.png" alt="Agentic SDLC AKADEN - New Workflow diagram" class="shift-diagram-img" width="1024" height="576" loading="eager">
-            </div>
-
-            <!-- Reveal Divider Line (Horizontal wipe on desktop, vertical wipe on mobile) -->
-            <div class="shift-reveal-line" id="shiftRevealLine" aria-hidden="true">
-              <div class="reveal-line-bar"></div>
-              <div class="reveal-handle">
-                <svg class="handle-icon-desktop" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
-                <svg class="handle-icon-mobile" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
+          <!-- Schemes Grid: side-by-side on desktop, switched via tabs on mobile -->
+          <div class="shift-schemes-grid">
+            <!-- Left Column: Old Workflow -->
+            <div class="shift-col shift-col-old active" id="schemeOld" role="tabpanel">
+              <div class="shift-col-badge">
+                <span class="shift-pill-badge badge-old">OLD WORKFLOW</span>
+              </div>
+              <div class="shift-card">
+                <img src="assets/scheme-old-workflow.png" alt="Old Workflow - Manual SDLC: Engineer directly connecting to systems" class="shift-scheme-img" width="993" height="1024" loading="lazy">
               </div>
             </div>
 
-            <!-- Top Pill Tag -->
-            <div class="shift-top-tag" id="shiftTag">
-              <span class="tag-pulse" id="shiftTagPulse"></span>
-              <span id="shiftTagText">Manual SDLC</span>
-            </div>
-
-            <!-- Bottom Floating Caption -->
-            <div class="shift-bottom-bar">
-              <p id="shiftCaption"><strong>Manual SDLC (Old Workflow).</strong> Hand-configure every workflow and integration manually.</p>
+            <!-- Right Column: New Workflow -->
+            <div class="shift-col shift-col-new" id="schemeNew" role="tabpanel">
+              <div class="shift-col-badge">
+                <span class="shift-pill-badge badge-new">NEW WORKFLOW</span>
+              </div>
+              <div class="shift-card">
+                <img src="assets/scheme-new-workflow.png" alt="New Workflow - Agentic SDLC: Engineer supervising AI Agents connecting to systems" class="shift-scheme-img" width="993" height="1024" loading="lazy">
+              </div>
             </div>
           </div>
         </div>

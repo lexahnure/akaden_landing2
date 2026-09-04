@@ -41,29 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const probeY = 44;
     let isDark = false;
 
-    // 1. Check The Shift section (dark background #101429)
-    if (shiftSection) {
-      const rect = shiftSection.getBoundingClientRect();
-      if (rect.top <= probeY && rect.bottom > probeY) {
-        isDark = true;
-      }
-    }
-
-    // 2. Check Meanwhile in 2026 track (becomes dark when dark bg slides up)
-    if (meanwhileTrack && !isDark) {
-      const rect = meanwhileTrack.getBoundingClientRect();
-      if (rect.top <= probeY && rect.bottom > probeY) {
-        if (meanwhileDarkBg) {
-          const darkRect = meanwhileDarkBg.getBoundingClientRect();
-          if (darkRect.top <= probeY && darkRect.bottom > probeY) {
-            isDark = true;
-          }
-        }
-      }
-    }
-
-    // 3. Check Footer (dark background #0f172a)
-    if (siteFooter && !isDark) {
+    // Check Footer (dark background #0f172a)
+    if (siteFooter) {
       const rect = siteFooter.getBoundingClientRect();
       if (rect.top <= probeY && rect.bottom > probeY) {
         isDark = true;
@@ -146,135 +125,29 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     3. Section 3: Meanwhile in 2026 (Sticky with Dark Background sliding UNDER)
+     4. Section 4: The Shift - Mobile Tabs Switcher
+        On mobile: switches between Old Workflow and New Workflow schemes
+        On desktop: both stand side-by-side with labels
      ------------------------------------------------------------------------ */
-  if (meanwhileTrack && meanwhileDarkBg) {
-    const handleMeanwhileScroll = () => {
-      const trackRect = meanwhileTrack.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
+  const shiftTabBtns = document.querySelectorAll('.shift-tab-btn');
+  const shiftCols = document.querySelectorAll('.shift-col');
 
-      const scrollableDist = trackRect.height - windowHeight;
-      if (scrollableDist > 0) {
-        const scrolled = -trackRect.top;
-        // Stays on white half as long: dark background rises twice as fast
-        const progress = Math.min(Math.max(scrolled / (scrollableDist * 0.5), 0), 1);
-
-        // Dark background rises up smoothly and covers the track
-        const targetHeight = Math.min(progress * 100, 85);
-        meanwhileDarkBg.style.height = `${targetHeight}vh`;
-      }
-    };
-
-    window.addEventListener('scroll', handleMeanwhileScroll, { passive: true });
-    handleMeanwhileScroll();
-  }
-
-  /* ------------------------------------------------------------------------
-     4. Section 4: The Shift - Sticky Reveal Line wipes from Right to Left
-     ------------------------------------------------------------------------ */
-  const shiftTrack = document.getElementById('shiftTrack');
-  const scheme2 = document.getElementById('scheme2');
-  const shiftRevealLine = document.getElementById('shiftRevealLine');
-  const shiftTagText = document.getElementById('shiftTagText');
-  const shiftTagPulse = document.getElementById('shiftTagPulse');
-  const shiftCaption = document.getElementById('shiftCaption');
-
-  if (shiftTrack && scheme2 && shiftRevealLine) {
-    const handleShiftWipe = () => {
-      const rect = shiftTrack.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      const scrollableDist = rect.height - windowHeight;
-
-      if (scrollableDist > 0) {
-        const scrolled = -rect.top;
-        // Progress goes 0.0 -> 1.0 as user scrolls through track
-        const progress = Math.min(Math.max(scrolled / scrollableDist, 0), 1);
-
-        // Wipe reveal completes during the first 75% of the runway.
-        // During the remaining 25% (quarter of scroll), it remains pinned in the center
-        // with the new Agentic SDLC scheme fully revealed!
-        const revealProgress = Math.min(progress / 0.75, 1);
-        const isMobile = window.innerWidth <= 768;
-
-        if (isMobile) {
-          // MOBILE: Comparing workflows runs vertically (top to bottom)
-          const verticalPercent = (revealProgress * 100).toFixed(2);
-          const numVertical = parseFloat(verticalPercent);
-
-          // Scheme 2 reveals from top to bottom
-          scheme2.style.clipPath = `inset(0 0 ${100 - numVertical}% 0)`;
-          shiftRevealLine.style.top = `${verticalPercent}%`;
-          shiftRevealLine.style.left = '0';
-
-          // Reveal line disappears once it reaches the bottom end (>= 98.5%)
-          if (numVertical >= 98.5 || progress >= 0.75) {
-            shiftRevealLine.style.opacity = '0';
-          } else {
-            shiftRevealLine.style.opacity = '1';
-          }
-
-          if (numVertical < 20) {
-            if (shiftTagText) shiftTagText.textContent = 'Manual SDLC';
-            if (shiftTagPulse) shiftTagPulse.style.backgroundColor = '#ff4d4f';
-            if (shiftCaption) {
-              shiftCaption.innerHTML = '<strong>Manual SDLC (Old Workflow).</strong> Hand-configure every workflow and integration manually.';
-            }
-          } else if (numVertical > 85 || progress >= 0.75) {
-            if (shiftTagText) shiftTagText.textContent = 'Agentic SDLC AKADEN';
-            if (shiftTagPulse) shiftTagPulse.style.backgroundColor = '#00ddff';
-            if (shiftCaption) {
-              shiftCaption.innerHTML = '<strong>Agentic SDLC AKADEN (New Workflow).</strong> Specialized AI agents execute bounded engineering steps under human supervision.';
-            }
-          } else {
-            if (shiftTagText) shiftTagText.textContent = 'Comparing Workflows (' + Math.round(numVertical) + '%)';
-            if (shiftTagPulse) shiftTagPulse.style.backgroundColor = '#e52ea8';
-            if (shiftCaption) {
-              shiftCaption.innerHTML = '<strong>The Shift.</strong> Only the engineer\'s position changes — from manual execution to supervising AI agents.';
-            }
-          }
-        } else {
-          // DESKTOP: Comparing workflows runs horizontally (right to left)
-          const dividerPercent = (100 - (revealProgress * 100)).toFixed(2);
-          const numDivider = parseFloat(dividerPercent);
-
-          // Scheme 2 reveals from right to left
-          scheme2.style.clipPath = `inset(0 0 0 ${dividerPercent}%)`;
-          shiftRevealLine.style.left = `${dividerPercent}%`;
-          shiftRevealLine.style.top = '0';
-
-          // Reveal line disappears once it reaches the left end (and stays hidden during the post-reveal quarter)
-          if (numDivider <= 1.0 || progress >= 0.75) {
-            shiftRevealLine.style.opacity = '0';
-          } else {
-            shiftRevealLine.style.opacity = '1';
-          }
-
-          if (numDivider > 80) {
-            if (shiftTagText) shiftTagText.textContent = 'Manual SDLC';
-            if (shiftTagPulse) shiftTagPulse.style.backgroundColor = '#ff4d4f';
-            if (shiftCaption) {
-              shiftCaption.innerHTML = '<strong>Manual SDLC (Old Workflow).</strong> Hand-configure every workflow and integration manually.';
-            }
-          } else if (numDivider < 15 || progress >= 0.75) {
-            if (shiftTagText) shiftTagText.textContent = 'Agentic SDLC AKADEN';
-            if (shiftTagPulse) shiftTagPulse.style.backgroundColor = '#00ddff';
-            if (shiftCaption) {
-              shiftCaption.innerHTML = '<strong>Agentic SDLC AKADEN (New Workflow).</strong> Specialized AI agents execute bounded engineering steps under human supervision.';
-            }
-          } else {
-            if (shiftTagText) shiftTagText.textContent = 'Comparing Workflows (' + Math.round(100 - numDivider) + '%)';
-            if (shiftTagPulse) shiftTagPulse.style.backgroundColor = '#e52ea8';
-            if (shiftCaption) {
-              shiftCaption.innerHTML = '<strong>The Shift.</strong> Only the engineer\'s position changes — from manual execution to supervising AI agents.';
-            }
-          }
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleShiftWipe, { passive: true });
-    window.addEventListener('resize', handleShiftWipe, { passive: true });
-    handleShiftWipe();
+  if (shiftTabBtns.length > 0) {
+    shiftTabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetTab = btn.getAttribute('data-tab');
+        shiftTabBtns.forEach(b => {
+          const isSelected = b === btn;
+          b.classList.toggle('active', isSelected);
+          b.setAttribute('aria-selected', String(isSelected));
+        });
+        shiftCols.forEach(col => {
+          const matches = (targetTab === 'old' && col.classList.contains('shift-col-old')) ||
+                          (targetTab === 'new' && col.classList.contains('shift-col-new'));
+          col.classList.toggle('active', matches);
+        });
+      });
+    });
   }
 
   /* ------------------------------------------------------------------------

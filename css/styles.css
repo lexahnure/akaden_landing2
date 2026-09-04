@@ -542,22 +542,11 @@
 }
 
 /* --------------------------------------------------------------------------
-   Section 3: Meanwhile in 2026 (Sticky with Dark Background sliding UNDER)
+   Section 3: Meanwhile in 2026
    -------------------------------------------------------------------------- */
-.meanwhile-scroll-track {
-  position: relative;
-  min-height: 110vh;
-  background-color: var(--color-bg-white);
-  padding-top: 40px;
-}
-
-.meanwhile-sticky-container {
-  position: sticky;
-  top: calc(50vh - 135px);
-  z-index: 20;
-  display: flex;
-  justify-content: center;
-  padding: 0 24px;
+.section-meanwhile {
+  padding: 60px 0 40px;
+  background-color: var(--color-bg-slate-light);
 }
 
 .meanwhile-card,
@@ -565,23 +554,24 @@
   position: relative;
   width: 100%;
   max-width: 880px;
-  background-color: var(--color-bg-dark);
-  border-radius: var(--radius-inner);
-  padding: 36px 40px;
-  color: var(--color-text-white);
+  margin: 0 auto;
+  background-color: var(--color-bg-white);
+  border-radius: 20px;
+  padding: 32px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   z-index: 1;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
 }
 
 .meanwhile-card::after,
 .meanwhile-inner-card::after {
   content: "";
   position: absolute;
-  inset: -8px;
-  border-radius: var(--radius-outer);
+  inset: -4px;
+  border-radius: 24px;
   background: var(--gradient-meanwhile-outer);
   z-index: -1;
   pointer-events: none;
@@ -592,10 +582,10 @@
   font-size: 18px;
   font-weight: 700;
   line-height: 27px;
-  color: var(--color-text-white);
+  color: var(--color-primary-blue);
   text-transform: uppercase;
   letter-spacing: 0.02em;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   text-align: center;
 }
 
@@ -604,10 +594,10 @@
   font-size: 18px;
   font-weight: 400;
   line-height: 27px;
-  color: var(--color-text-white-sub);
+  color: var(--color-text-body);
   margin-bottom: 24px;
   text-align: center;
-  max-width: 800px;
+  max-width: 808px;
 }
 
 .meanwhile-punchline {
@@ -615,31 +605,18 @@
   font-size: 18px;
   font-weight: 700;
   line-height: 27px;
-  color: var(--color-text-white);
+  color: var(--color-text-body);
   text-align: center;
-  max-width: 800px;
-}
-
-.meanwhile-dark-rising-bg {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 60vh;
-  background-color: var(--color-bg-dark);
-  z-index: 10;
-  pointer-events: none;
+  max-width: 808px;
 }
 
 /* --------------------------------------------------------------------------
-   Section 4: The Shift with Diagram Sticky in Center
+   Section 4: The Shift (Side-by-side on Desktop, Tabs on Mobile)
    -------------------------------------------------------------------------- */
 .section-shift {
-  background-color: var(--color-bg-dark);
-  padding-top: 120px; /* doubled padding from meanwhile */
-  padding-bottom: 100px; /* 100px padding to bottom border of dark section */
-  color: var(--color-text-white);
-  position: relative;
+  background-color: var(--color-bg-slate-light);
+  padding: 40px 0 100px;
+  color: var(--color-text-dark);
 }
 
 .shift-header {
@@ -652,7 +629,7 @@
   font-size: 42.5px;
   font-weight: 600;
   line-height: 51px;
-  color: var(--color-text-white);
+  color: var(--color-text-dark);
   letter-spacing: -0.02em;
 }
 
@@ -661,170 +638,85 @@
   font-size: 18px;
   font-weight: 400;
   line-height: 27px;
-  color: var(--color-text-white-sub);
+  color: var(--color-text-body);
   max-width: 800px;
   margin: 16px auto 0;
 }
 
-.shift-diagram-track {
-  position: relative;
-  height: 220vh;
-}
-
-.shift-sticky-center {
-  position: sticky;
-  top: calc(50vh - 300px); /* diagram sticky centered on screen */
-  z-index: 10;
-  display: flex;
-  justify-content: center;
-}
-
-@media (max-height: 720px) {
-  .shift-sticky-center {
-    top: 76px;
-  }
-}
-
-.shift-diagram-card {
-  position: relative;
-  width: 100%;
+.shift-showcase {
   max-width: 1200px;
-  height: 600px;
-  border-radius: var(--radius-card);
-  background-color: #000214;
-  border: 1px solid var(--color-border-dark);
-  overflow: hidden;
-  user-select: none;
+  margin: 0 auto;
 }
 
-.shift-scheme-pane {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.shift-scheme-pane.scheme-1 {
-  z-index: 1;
-}
-
-.shift-scheme-pane.scheme-2 {
-  z-index: 2;
-  clip-path: inset(0 0 0 100%);
-  will-change: clip-path;
-}
-
-.shift-diagram-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-  pointer-events: none;
-}
-
-/* Glowing Wipe Reveal Line */
-.shift-reveal-line {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 100%;
-  width: 2px;
-  z-index: 10;
-  transform: translateX(-50%);
-  pointer-events: none;
-  will-change: left, opacity;
-  transition: opacity 0.25s ease;
-}
-
-.reveal-line-bar {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 2px;
-  background: linear-gradient(180deg, rgba(0, 221, 255, 0.1) 0%, #00ddff 35%, #8f1fff 65%, rgba(143, 31, 255, 0.1) 100%);
-  box-shadow: 0 0 12px #00ddff, 0 0 24px rgba(143, 31, 255, 0.6);
-}
-
-.reveal-handle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: #101429;
-  border: 2px solid #00ddff;
-  box-shadow: 0 0 16px rgba(0, 221, 255, 0.8);
-  color: #00ddff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.handle-icon-desktop {
-  display: block;
-}
-
-.handle-icon-mobile {
+/* Mobile Tabs Switcher (hidden on desktop) */
+.shift-tabs-bar {
   display: none;
 }
 
-.shift-top-tag {
-  position: absolute;
-  top: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: var(--color-badge-blue);
-  color: var(--color-primary-blue);
+/* Desktop Schemes Grid: 2 columns */
+.shift-schemes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 36px;
+  align-items: start;
+}
+
+.shift-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.shift-col-badge {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.shift-pill-badge {
   font-family: var(--font-sans);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
-  line-height: 15px;
-  padding: 6px 14px;
-  border-radius: var(--radius-pill);
+  line-height: 21px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 8px 24px;
+  border-radius: 999px;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  z-index: 12;
-  transition: all 0.2s ease;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
-.tag-pulse {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background-color: #ff4d4f;
-  transition: background-color 0.2s ease;
+.shift-pill-badge.badge-old {
+  background-color: #ebecf0;
+  color: #70737a;
+  border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
-.shift-bottom-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba(16, 20, 41, 0.85);
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
-  padding: 16px 24px;
-  text-align: center;
-  z-index: 12;
+.shift-pill-badge.badge-new {
+  background-color: #e1e8f5;
+  color: var(--color-primary-blue);
+  border: 1px solid rgba(0, 45, 156, 0.12);
 }
 
-.shift-bottom-bar p {
-  font-family: var(--font-sans);
-  font-size: 18px;
-  line-height: 27px;
-  color: var(--color-text-white-sub);
+.shift-card {
+  width: 100%;
+  max-width: 580px;
+  border-radius: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
 }
 
-.shift-bottom-bar strong {
-  color: var(--color-text-white);
-  font-weight: 700;
+.shift-scheme-img {
+  width: 100%;
+  height: auto;
+  border-radius: 36px;
+  box-shadow: 0 12px 36px -12px rgba(0, 0, 0, 0.09);
+  display: block;
 }
 
 /* --------------------------------------------------------------------------
@@ -1750,60 +1642,80 @@
     border-radius: 24px;
   }
 
-  /* Section 4: The Shift - text below schemes, never covering them */
-  .shift-sticky-center {
-    top: calc(50vh - 170px);
-  }
-
-  .shift-diagram-card {
-    height: 340px;
-  }
-
-  .shift-scheme-pane {
-    bottom: 85px;
-    height: auto;
-  }
-
-  .shift-reveal-line {
-    top: 0;
-    bottom: 85px;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 2px;
-    transform: translateY(-50%);
-  }
-
-  .reveal-line-bar {
-    top: 0;
-    bottom: auto;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, rgba(0, 221, 255, 0.1) 0%, #00ddff 35%, #8f1fff 65%, rgba(143, 31, 255, 0.1) 100%);
-    box-shadow: 0 0 12px #00ddff, 0 0 24px rgba(143, 31, 255, 0.6);
-  }
-
-  .shift-bottom-bar {
-    height: 85px;
-    padding: 10px 14px;
+  /* Section 4: The Shift on mobile - Tabs Switcher */
+  .shift-tabs-bar {
     display: flex;
-    align-items: center;
     justify-content: center;
+    gap: 12px;
+    margin-bottom: 24px;
   }
 
-  .shift-bottom-bar p {
+  .shift-tab-btn {
+    appearance: none;
+    background-color: #f1f3f7;
+    color: #94a3b8;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    padding: 10px 20px;
+    font-family: var(--font-sans);
     font-size: 13px;
-    line-height: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: all 0.25s ease;
   }
 
-  .handle-icon-desktop {
+  .shift-tab-btn.tab-old.active {
+    background-color: #ebecf0;
+    color: #1e293b;
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .shift-tab-btn.tab-new.active {
+    background-color: #e1e8f5;
+    color: var(--color-primary-blue);
+    border-color: rgba(0, 45, 156, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 45, 156, 0.12);
+  }
+
+  .shift-col-badge {
     display: none;
   }
 
-  .handle-icon-mobile {
+  .shift-schemes-grid {
     display: block;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .shift-col {
+    display: none;
+  }
+
+  .shift-col.active {
+    display: flex;
+    animation: fadeInTab 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes fadeInTab {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .shift-card {
+    border-radius: 24px;
+  }
+
+  .shift-scheme-img {
+    border-radius: 24px;
   }
 
   /* Section 7: Why Not AI - Checkboxes to top, 36x36 */
