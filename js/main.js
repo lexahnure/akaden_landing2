@@ -104,6 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let lastRenderedText = '';
     let lastAngle = -1;
     let lastBgOp = -1;
+    let lastAfterOp = -1;
 
     const updateClassicFlow = () => {
       ticking = false;
@@ -122,41 +123,48 @@ document.addEventListener('DOMContentLoaded', () => {
       // Ease-out helper
       const easeOut = t => 1 - Math.pow(1 - t, 2);
 
-      // --- Stage 1: Card 2 slides in (P: 0.00 -> 0.12) ---
-      const t2Raw = Math.min(Math.max(progress / 0.12, 0), 1);
+      // --- Stage 1: Card 2 slides in (P: 0.00 -> 0.11) ---
+      const t2Raw = Math.min(Math.max(progress / 0.11, 0), 1);
       const t2 = easeOut(t2Raw);
       const ty2 = Math.round((1 - t2) * enterDistance);
       const op2 = progress <= 0 ? 0 : Math.min(1, t2Raw * 2.5);
       classicCard2.style.transform = `translate3d(0, ${ty2}px, 0)`;
       classicCard2.style.opacity = op2;
 
-      // --- Stage 2: Card 3 slides in (P: 0.12 -> 0.24) ---
-      const t3Raw = Math.min(Math.max((progress - 0.12) / 0.12, 0), 1);
+      // --- Stage 2: Card 3 slides in (P: 0.11 -> 0.22) ---
+      const t3Raw = Math.min(Math.max((progress - 0.11) / 0.11, 0), 1);
       const t3 = easeOut(t3Raw);
       const ty3 = Math.round((1 - t3) * enterDistance);
-      const op3 = progress <= 0.12 ? 0 : Math.min(1, t3Raw * 2.5);
+      const op3 = progress <= 0.11 ? 0 : Math.min(1, t3Raw * 2.5);
       classicCard3.style.transform = `translate3d(0, ${ty3}px, 0)`;
       classicCard3.style.opacity = op3;
 
-      // --- Stage 3: Card 4 slides in (P: 0.24 -> 0.36) ---
-      const t4Raw = Math.min(Math.max((progress - 0.24) / 0.12, 0), 1);
+      // --- Stage 3: Card 4 slides in (P: 0.22 -> 0.33) ---
+      const t4Raw = Math.min(Math.max((progress - 0.22) / 0.11, 0), 1);
       const t4 = easeOut(t4Raw);
       const ty4 = Math.round((1 - t4) * enterDistance);
-      const op4 = progress <= 0.24 ? 0 : Math.min(1, t4Raw * 2.5);
+      const op4 = progress <= 0.22 ? 0 : Math.min(1, t4Raw * 2.5);
       classicCard4.style.transform = `translate3d(0, ${ty4}px, 0)`;
       classicCard4.style.opacity = op4;
 
-      // --- Stage 4: Background #F0F5FF & :after conic glow appear (P: 0.36 -> 0.46) ---
-      const bgProgress = Math.min(Math.max((progress - 0.36) / 0.10, 0), 1);
+      // --- Stage 4: Background #F0F5FF appears FIRST (P: 0.33 -> 0.42) ---
+      const bgProgress = Math.min(Math.max((progress - 0.33) / 0.09, 0), 1);
       const bgRounded = Math.round(bgProgress * 100) / 100;
       if (bgRounded !== lastBgOp) {
         lastBgOp = bgRounded;
         classicFlowBoard.style.setProperty('--board-bg-opacity', bgRounded);
-        classicFlowBoard.style.setProperty('--board-after-opacity', bgRounded);
       }
 
-      // --- Stage 5: Conic gradient rotates 720deg & Multiplier counts up (P: 0.46 -> 0.90) ---
-      const rotProgress = Math.min(Math.max((progress - 0.46) / 0.44, 0), 1);
+      // --- Stage 5: THEN :after conic gradient ring appears (P: 0.42 -> 0.51) ---
+      const afterProgress = Math.min(Math.max((progress - 0.42) / 0.09, 0), 1);
+      const afterRounded = Math.round(afterProgress * 100) / 100;
+      if (afterRounded !== lastAfterOp) {
+        lastAfterOp = afterRounded;
+        classicFlowBoard.style.setProperty('--board-after-opacity', afterRounded);
+      }
+
+      // --- Stage 6: Conic gradient rotates 720deg & Multiplier counts up (P: 0.51 -> 0.92) ---
+      const rotProgress = Math.min(Math.max((progress - 0.51) / 0.41, 0), 1);
       const angle = Math.round(rotProgress * 720);
       if (angle !== lastAngle) {
         lastAngle = angle;
@@ -165,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Multiplier logic
       let currentText = 'x1';
-      if (progress < 0.46) {
+      if (progress < 0.51) {
         currentText = 'x1';
       } else if (rotProgress >= 0.94) {
         currentText = 'x ∞';
