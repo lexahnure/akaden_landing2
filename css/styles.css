@@ -1721,7 +1721,7 @@
     width: 22px;
     height: 16px;
     padding: 0;
-    margin: 0;
+    margin: 0 14px 0 0;
     flex-shrink: 0;
     z-index: 10;
     cursor: pointer;
@@ -1748,23 +1748,19 @@
     transform: translateY(-7px) rotate(-45deg);
   }
 
-  /* Center: Mathematically Centered AKADEN Logo */
+  /* Brand Logo: Placed right next to Hamburger Icon on the left */
   .brand-logo {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    position: static;
+    transform: none;
     margin: 0;
-    z-index: 5;
-    pointer-events: auto;
+    z-index: 10;
     display: flex;
     align-items: center;
-    justify-content: center;
     text-decoration: none;
   }
 
   .brand-logo-text {
-    font-size: 20px;
+    font-size: 21px;
     font-weight: 800;
     letter-spacing: -0.01em;
   }
