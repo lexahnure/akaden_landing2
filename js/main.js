@@ -84,44 +84,113 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     2. Section 2: Classic Flow - Pinned Center Repeat Card (Counts 1 to 100)
+     2. Section 2: Classic Flow - Sequential Card Pinning Runway Animation
+     - Step 1 stays sticky at top.
+     - Steps 2, 3, 4 slide up sequentially with 8px gap.
+     - When all 4 are assembled, board background #F0F5FF and conic-gradient :after appear.
+     - Conic gradient rotates 720deg while multiplier counts x1 -> x100 -> x ∞.
+     - Releases to normal scroll once infinity is reached.
      ------------------------------------------------------------------------ */
-  const repeatPinTrack = document.getElementById('repeatPinTrack');
+  const classicRunway = document.getElementById('classicRunway');
+  const classicFlowBoard = document.getElementById('classicFlowBoard');
+  const classicCard1 = document.getElementById('classicCard1');
+  const classicCard2 = document.getElementById('classicCard2');
+  const classicCard3 = document.getElementById('classicCard3');
+  const classicCard4 = document.getElementById('classicCard4');
   const repeatMultiplier = document.getElementById('repeatMultiplier');
 
-  if (repeatPinTrack && repeatMultiplier) {
-    let lastRenderedMultiplier = 'x1';
+  if (classicRunway && classicFlowBoard && classicCard2 && classicCard3 && classicCard4 && repeatMultiplier) {
+    let ticking = false;
+    let lastRenderedText = '';
+    let lastAngle = -1;
+    let lastBgOp = -1;
 
-    const handleRepeatScroll = () => {
-      const rect = repeatPinTrack.getBoundingClientRect();
+    const updateClassicFlow = () => {
+      ticking = false;
+      const rect = classicRunway.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-
-      // Scrollable distance inside the pin track
       const scrollableDistance = rect.height - windowHeight;
 
-      if (scrollableDistance > 0) {
-        // How far the track has scrolled past the top
-        const scrolled = -rect.top;
-        const progress = Math.min(Math.max(scrolled / scrollableDistance, 0), 1);
+      if (scrollableDistance <= 0) return;
 
-        let targetText = 'x1';
-        if (progress >= 0.95) {
-          targetText = 'x ∞';
-        } else {
-          // Gradual count from 1 to 100 while pinned
-          const count = Math.min(100, Math.max(1, Math.round(1 + progress * 99)));
-          targetText = 'x' + count;
-        }
+      const scrolled = -rect.top;
+      const progress = Math.min(Math.max(scrolled / scrollableDistance, 0), 1);
 
-        if (targetText !== lastRenderedMultiplier) {
-          lastRenderedMultiplier = targetText;
-          repeatMultiplier.textContent = targetText;
-        }
+      // Travel distance for incoming cards
+      const enterDistance = Math.min(windowHeight * 0.75, 600);
+
+      // Ease-out helper
+      const easeOut = t => 1 - Math.pow(1 - t, 2);
+
+      // --- Stage 1: Card 2 slides in (P: 0.00 -> 0.12) ---
+      const t2Raw = Math.min(Math.max(progress / 0.12, 0), 1);
+      const t2 = easeOut(t2Raw);
+      const ty2 = Math.round((1 - t2) * enterDistance);
+      const op2 = progress <= 0 ? 0 : Math.min(1, t2Raw * 2.5);
+      classicCard2.style.transform = `translate3d(0, ${ty2}px, 0)`;
+      classicCard2.style.opacity = op2;
+
+      // --- Stage 2: Card 3 slides in (P: 0.12 -> 0.24) ---
+      const t3Raw = Math.min(Math.max((progress - 0.12) / 0.12, 0), 1);
+      const t3 = easeOut(t3Raw);
+      const ty3 = Math.round((1 - t3) * enterDistance);
+      const op3 = progress <= 0.12 ? 0 : Math.min(1, t3Raw * 2.5);
+      classicCard3.style.transform = `translate3d(0, ${ty3}px, 0)`;
+      classicCard3.style.opacity = op3;
+
+      // --- Stage 3: Card 4 slides in (P: 0.24 -> 0.36) ---
+      const t4Raw = Math.min(Math.max((progress - 0.24) / 0.12, 0), 1);
+      const t4 = easeOut(t4Raw);
+      const ty4 = Math.round((1 - t4) * enterDistance);
+      const op4 = progress <= 0.24 ? 0 : Math.min(1, t4Raw * 2.5);
+      classicCard4.style.transform = `translate3d(0, ${ty4}px, 0)`;
+      classicCard4.style.opacity = op4;
+
+      // --- Stage 4: Background #F0F5FF & :after conic glow appear (P: 0.36 -> 0.46) ---
+      const bgProgress = Math.min(Math.max((progress - 0.36) / 0.10, 0), 1);
+      const bgRounded = Math.round(bgProgress * 100) / 100;
+      if (bgRounded !== lastBgOp) {
+        lastBgOp = bgRounded;
+        classicFlowBoard.style.setProperty('--board-bg-opacity', bgRounded);
+        classicFlowBoard.style.setProperty('--board-after-opacity', bgRounded);
+      }
+
+      // --- Stage 5: Conic gradient rotates 720deg & Multiplier counts up (P: 0.46 -> 0.90) ---
+      const rotProgress = Math.min(Math.max((progress - 0.46) / 0.44, 0), 1);
+      const angle = Math.round(rotProgress * 720);
+      if (angle !== lastAngle) {
+        lastAngle = angle;
+        classicFlowBoard.style.setProperty('--conic-angle', `${angle}deg`);
+      }
+
+      // Multiplier logic
+      let currentText = 'x1';
+      if (progress < 0.46) {
+        currentText = 'x1';
+      } else if (rotProgress >= 0.94) {
+        currentText = 'x ∞';
+      } else {
+        // Smooth exponential-feeling count up from 1 to 100
+        const count = Math.min(100, Math.max(1, Math.round(1 + Math.pow(rotProgress / 0.94, 1.5) * 99)));
+        currentText = 'x' + count;
+      }
+
+      if (currentText !== lastRenderedText) {
+        lastRenderedText = currentText;
+        repeatMultiplier.textContent = currentText;
       }
     };
 
-    window.addEventListener('scroll', handleRepeatScroll, { passive: true });
-    handleRepeatScroll();
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(updateClassicFlow);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    updateClassicFlow();
   }
 
   /* ------------------------------------------------------------------------

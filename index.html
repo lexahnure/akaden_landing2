@@ -12,9 +12,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
   
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/variables.css?v=3">
-  <link rel="stylesheet" href="css/reset.css?v=3">
-  <link rel="stylesheet" href="css/styles.css?v=3">
+  <link rel="stylesheet" href="css/variables.css?v=4">
+  <link rel="stylesheet" href="css/reset.css?v=4">
+  <link rel="stylesheet" href="css/styles.css?v=4">
 </head>
 <body>
 
@@ -71,74 +71,76 @@
       </div>
     </section>
 
-    <!-- Section 2: The Classical Flow with Dedicated Sticky Pinning Repeat Track -->
+    <!-- Section 2: The Classical Flow with Sticky Sequential Pinning Runway -->
     <section class="section-classic" id="classic-flow">
       <div class="container narrow-container">
         <div class="section-header">
           <h2 class="section-title">The classical flow</h2>
         </div>
-
-        <!-- Step Cards 1, 2, 3 (Scrolled naturally) -->
-        <div class="classic-cards-stack">
-          <!-- Step 1 Card -->
-          <article class="classic-card">
-            <div class="classic-card-header">
-              <span class="step-circle">1</span>
-              <div class="step-pill">
-                <img src="assets/icon-explore.svg" alt="" width="20" height="20" class="step-icon-img">
-                <span>Assessment</span>
-              </div>
-            </div>
-            <p class="classic-card-text">
-              Read old workflows — on-prem code or an existing pipeline — and manually diagram data flow, tables, and business rules by hand.
-            </p>
-          </article>
-
-          <!-- Step 2 Card -->
-          <article class="classic-card">
-            <div class="classic-card-header">
-              <span class="step-circle">2</span>
-              <div class="step-pill">
-                <img src="assets/icon-hardware.svg" alt="" width="20" height="20" class="step-icon-img">
-                <span>Build</span>
-              </div>
-            </div>
-            <p class="classic-card-text">
-              Hand-configure the logic, whether that's PL/SQL, UniBasic, or Ellucian's Integration Designer. Hand-write transformations and error-handling. Repeat for every integration.
-            </p>
-          </article>
-
-          <!-- Step 3 Card -->
-          <article class="classic-card">
-            <div class="classic-card-header">
-              <span class="step-circle">3</span>
-              <div class="step-pill">
-                <img src="assets/icon-construction.svg" alt="" width="20" height="20" class="step-icon-img">
-                <span>Maintain</span>
-              </div>
-            </div>
-            <p class="classic-card-text">
-              Write tests from scratch, debug one failure at a time, monitor with no tooling carried over from the build phase.
-            </p>
-          </article>
-        </div>
       </div>
 
-      <!-- Dedicated Sticky Pin Track: Appears AFTER the 3 step cards, locks in center for 1 scroll while counter counts 1 to 100 -->
-      <div class="repeat-pin-track" id="repeatPinTrack">
-        <div class="container narrow-container repeat-sticky-holder">
-          <article class="classic-card-repeat" id="repeatCard">
-            <div class="repeat-card-header">
-              <div class="repeat-badge" id="repeatBadge">
-                <img src="assets/icon-autorenew.svg" alt="" width="24" height="24" class="repeat-icon-img">
-                <span class="repeat-multiplier" id="repeatMultiplier" aria-live="polite">x1</span>
-              </div>
+      <!-- Dedicated Sticky Pin Runway: Cards 1-4 assemble with 8px gap, background & glow reveal, then 720deg rotation & counter up to infinity -->
+      <div class="classic-runway" id="classicRunway">
+        <div class="classic-sticky-container" id="classicStickyContainer">
+          <div class="container narrow-container">
+            <div class="classic-flow-board" id="classicFlowBoard">
+              <!-- Step 1 Card: Assessment -->
+              <article class="classic-card classic-card-step" id="classicCard1" data-step="1">
+                <div class="classic-card-header">
+                  <span class="step-circle">1</span>
+                  <div class="step-pill">
+                    <img src="assets/icon-explore.svg" alt="" width="20" height="20" class="step-icon-img">
+                    <span>Assessment</span>
+                  </div>
+                </div>
+                <p class="classic-card-text">
+                  Read old workflows — on-prem code or an existing pipeline — and manually diagram data flow, tables, and business rules by hand.
+                </p>
+              </article>
+
+              <!-- Step 2 Card: Build -->
+              <article class="classic-card classic-card-step" id="classicCard2" data-step="2">
+                <div class="classic-card-header">
+                  <span class="step-circle">2</span>
+                  <div class="step-pill">
+                    <img src="assets/icon-hardware.svg" alt="" width="20" height="20" class="step-icon-img">
+                    <span>Build</span>
+                  </div>
+                </div>
+                <p class="classic-card-text">
+                  Hand-configure the logic, whether that's PL/SQL, UniBasic, or Ellucian's Integration Designer. Hand-write transformations and error-handling. Repeat for every integration.
+                </p>
+              </article>
+
+              <!-- Step 3 Card: Maintain -->
+              <article class="classic-card classic-card-step" id="classicCard3" data-step="3">
+                <div class="classic-card-header">
+                  <span class="step-circle">3</span>
+                  <div class="step-pill">
+                    <img src="assets/icon-construction.svg" alt="" width="20" height="20" class="step-icon-img">
+                    <span>Maintain</span>
+                  </div>
+                </div>
+                <p class="classic-card-text">
+                  Write tests from scratch, debug one failure at a time, monitor with no tooling carried over from the build phase.
+                </p>
+              </article>
+
+              <!-- Step 4 Card: Repeat by Hand -->
+              <article class="classic-card-repeat" id="classicCard4" data-step="4">
+                <div class="repeat-card-header">
+                  <div class="repeat-badge" id="repeatBadge">
+                    <img src="assets/icon-autorenew.svg" alt="" width="24" height="24" class="repeat-icon-img">
+                    <span class="repeat-multiplier" id="repeatMultiplier" aria-live="polite">x1</span>
+                  </div>
+                </div>
+                <h3 class="repeat-title">Repeat — by hand, every time, for every integration.</h3>
+                <p class="repeat-subtext">
+                  It's real engineering work. But the knowledge of how any of it works usually lives in one engineer's head — and walks out the door when they move on.
+                </p>
+              </article>
             </div>
-            <h3 class="repeat-title">Repeat — by hand, every time, for every integration.</h3>
-            <p class="repeat-subtext">
-              It's real engineering work. But the knowledge of how any of it works usually lives in one engineer's head — and walks out the door when they move on.
-            </p>
-          </article>
+          </div>
         </div>
       </div>
     </section>
@@ -659,6 +661,6 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="js/main.js?v=2"></script>
+  <script src="js/main.js?v=4"></script>
 </body>
 </html>

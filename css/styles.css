@@ -390,33 +390,99 @@
 }
 
 /* --------------------------------------------------------------------------
-   Section 2: The Classical Flow with Sticky Repeat Pinning Track
+   Section 2: The Classical Flow with Sticky Sequential Pinning Runway
    -------------------------------------------------------------------------- */
 .section-classic {
   padding-top: 80px;
   padding-bottom: 0;
   background-color: var(--color-bg-white);
   position: relative;
+  overflow-x: clip;
 }
 
-.classic-cards-stack {
+.classic-runway {
+  position: relative;
+  height: 380vh;
+  margin-top: 24px;
+}
+
+.classic-sticky-container {
+  position: sticky;
+  top: max(72px, calc(50vh - 340px));
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.classic-flow-board {
+  position: relative;
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+  border-radius: 32px;
+  padding: 8px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 8px;
+  isolation: isolate;
+  --board-bg-opacity: 0;
+  --board-after-opacity: 0;
+  --conic-angle: 0deg;
+}
+
+/* Background #F0F5FF layer that fades in once all 4 cards line up */
+.classic-flow-board::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 32px;
+  background-color: #F0F5FF;
+  z-index: 0;
+  opacity: var(--board-bg-opacity, 0);
+  transition: opacity 0.05s linear;
+  pointer-events: none;
+}
+
+/* Conic gradient border ring layer (4px larger on each side, border-radius: 36px) */
+.classic-flow-board::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 36px;
+  background: conic-gradient(
+    from var(--conic-angle, 0deg) at 50% 50%,
+    rgba(15, 98, 254, 0.30) 54.00000214576721deg,
+    rgba(81, 69, 229, 0.25) 125.99999785423279deg,
+    rgba(229, 46, 168, 0.11) 180deg,
+    rgba(15, 98, 254, 0.13) 233.99999141693115deg,
+    rgba(81, 69, 229, 0.10) 306.00000858306885deg,
+    rgba(229, 46, 168, 0.15) 360deg
+  ), var(--blue-A300, #ABBDE0);
+  z-index: -1;
+  opacity: var(--board-after-opacity, 0);
+  transition: opacity 0.05s linear;
+  pointer-events: none;
+}
+
+.classic-flow-board > * {
+  position: relative;
+  z-index: 1;
 }
 
 .classic-card {
   background-color: var(--color-bg-white);
   border: 1px solid var(--color-border-card);
-  border-radius: var(--radius-card);
-  padding: 24px 32px;
+  border-radius: var(--radius-card, 24px);
+  padding: 20px 28px;
+  will-change: transform, opacity;
 }
 
 .classic-card-header {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .step-circle {
@@ -462,35 +528,18 @@
   color: var(--color-text-body);
 }
 
-/* Repeat Card Sticky Runway Track:
-   Appears after 3 step cards, locks in center for 1 full scroll runway,
-   and counts up 1 to 100 while pinned! */
-.repeat-pin-track {
-  position: relative;
-  height: 140vh;
-  margin-top: 30px;
-}
-
-.repeat-sticky-holder {
-  position: sticky;
-  top: calc(50vh - 120px);
-  z-index: 10;
-  display: flex;
-  justify-content: center;
-}
-
 .classic-card-repeat {
-  background-color: var(--color-bg-blue-tint);
+  background-color: transparent;
   border: none;
-  border-radius: var(--radius-card);
-  padding: 32px 40px;
+  border-radius: 0;
+  padding: 24px 28px 20px;
   text-align: center;
   width: 100%;
-  max-width: 880px;
+  will-change: transform, opacity;
 }
 
 .repeat-card-header {
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   display: flex;
   justify-content: center;
 }
@@ -500,10 +549,9 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background-color: var(--color-bg-blue-tint);
-  padding: 6px 20px;
-  border-radius: 24px;
-  border: 1px solid rgba(0, 45, 156, 0.15);
+  background: transparent;
+  padding: 0;
+  border: none;
 }
 
 .repeat-icon-img {
@@ -517,8 +565,8 @@
   font-weight: 700;
   line-height: 27px;
   color: var(--color-primary-blue);
-  min-width: 56px;
-  text-align: center;
+  min-width: 48px;
+  text-align: left;
 }
 
 .repeat-title {
@@ -528,7 +576,8 @@
   line-height: 27px;
   color: var(--color-primary-blue);
   text-transform: uppercase;
-  margin-bottom: 10px;
+  letter-spacing: 0.02em;
+  margin-bottom: 8px;
 }
 
 .repeat-subtext {
@@ -539,6 +588,59 @@
   color: var(--color-text-body);
   max-width: 800px;
   margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .classic-runway {
+    height: 320vh;
+  }
+  .classic-sticky-container {
+    top: max(56px, calc(50vh - 280px));
+  }
+  .classic-flow-board {
+    border-radius: 24px;
+    padding: 6px;
+    gap: 6px;
+  }
+  .classic-flow-board::before {
+    border-radius: 24px;
+  }
+  .classic-flow-board::after {
+    border-radius: 28px;
+  }
+  .classic-card {
+    padding: 14px 18px;
+    border-radius: 18px;
+  }
+  .classic-card-header {
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .step-circle {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+  .step-pill {
+    padding: 4px 12px;
+    font-size: 12px;
+  }
+  .classic-card-text {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .classic-card-repeat {
+    padding: 14px 12px 10px;
+  }
+  .repeat-title {
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 6px;
+  }
+  .repeat-subtext {
+    font-size: 13px;
+    line-height: 19px;
+  }
 }
 
 /* --------------------------------------------------------------------------
