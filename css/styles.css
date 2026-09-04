@@ -1829,9 +1829,17 @@
     line-height: 130%;
   }
 
-  /* Mobile: FAQ questions font size 20px */
+  /* Mobile: FAQ questions font size 20px and inline padding 24px */
   .faq-question {
     font-size: 20px;
+  }
+
+  .faq-trigger,
+  .faq-item.active .faq-trigger,
+  .faq-answer {
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-inline: 24px;
   }
 
   /* Mobile: Base font and line-height in sections changed from 18px / 27px to 16px / 24px */
