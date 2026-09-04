@@ -867,7 +867,7 @@
   justify-content: flex-start;
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(.56, 0, .38, 1);
   position: relative;
   z-index: 1;
 }
@@ -909,7 +909,7 @@
   justify-content: center;
   z-index: 5;
   opacity: 0;
-  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(.56, 0, .38, 1);
 }
 
 .op-plus-1 {
@@ -954,7 +954,7 @@
   text-align: center;
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(.56, 0, .38, 1);
 }
 
 .formula-result.revealed {
