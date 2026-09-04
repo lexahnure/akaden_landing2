@@ -546,7 +546,7 @@
    -------------------------------------------------------------------------- */
 .section-meanwhile {
   padding: 60px 0 40px;
-  background-color: var(--color-bg-slate-light);
+  background: var(--gradient-meanwhile-bg);
   position: relative;
   isolation: isolate;
 }
@@ -625,7 +625,7 @@
    Section 4: The Shift (Side-by-side on Desktop, Tabs on Mobile)
    -------------------------------------------------------------------------- */
 .section-shift {
-  background-color: var(--color-bg-slate-light);
+  background-color: var(--color-bg-section-light);
   padding: 40px 0 100px;
   color: var(--color-text-dark);
 }
@@ -735,7 +735,7 @@
    -------------------------------------------------------------------------- */
 .section-what-is {
   padding: 100px 0 90px;
-  background-color: var(--color-bg-slate-light);
+  background-color: var(--color-bg-section-light);
 }
 
 .formula-container {
@@ -1329,7 +1329,7 @@
    -------------------------------------------------------------------------- */
 .section-faq {
   padding: 100px 0 110px;
-  background-color: var(--color-bg-slate-light);
+  background-color: var(--color-bg-section-light);
 }
 
 .faq-list {
