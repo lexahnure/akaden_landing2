@@ -271,6 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.addEventListener('resize', updateFormulaOperatorsPosition, { passive: true });
+    window.addEventListener('load', updateFormulaOperatorsPosition, { passive: true });
     setTimeout(updateFormulaOperatorsPosition, 60);
 
     const sequenceElements = [
@@ -283,25 +284,52 @@ document.addEventListener('DOMContentLoaded', () => {
       formulaContainer.querySelector('.formula-result')
     ].filter(Boolean);
 
-    let hasRevealedFormula = false;
+    // Scroll-tied progressive reveal thresholds across [0, 1]
+    // 0: Card 1 -> 1: Plus 1 -> 2: Card 2 -> 3: Plus 2 -> 4: Card 3 -> 5: Equals -> 6: Result
+    const formulaThresholds = [0.05, 0.20, 0.35, 0.50, 0.65, 0.80, 0.95];
+    let formulaTicking = false;
 
-    const formulaObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && !hasRevealedFormula) {
-          hasRevealedFormula = true;
-          updateFormulaOperatorsPosition();
-          // Step through items quite fast one after another (130ms delay each)
-          sequenceElements.forEach((el, index) => {
-            setTimeout(() => {
-              el.classList.add('revealed');
-            }, index * 130);
-          });
-          observer.unobserve(entry.target);
+    const updateFormulaScroll = () => {
+      formulaTicking = false;
+      const windowHeight = window.innerHeight;
+      const rect = formulaContainer.getBoundingClientRect();
+      const isMobile = window.innerWidth <= 1024;
+
+      // Start revealing when formulaContainer top reaches 82% of viewport height
+      const startPoint = windowHeight * 0.82;
+      const totalDistance = isMobile
+        ? formulaContainer.offsetHeight
+        : (windowHeight * 0.55);
+
+      if (totalDistance <= 0) return;
+
+      const scrolled = startPoint - rect.top;
+      const progress = Math.min(Math.max(scrolled / totalDistance, 0), 1);
+
+      sequenceElements.forEach((el, index) => {
+        const threshold = formulaThresholds[index] !== undefined ? formulaThresholds[index] : (index / sequenceElements.length);
+        if (progress >= threshold) {
+          el.classList.add('revealed');
+        } else {
+          el.classList.remove('revealed');
         }
       });
-    }, { threshold: 0.15 });
+    };
 
-    formulaObserver.observe(formulaContainer);
+    const onFormulaScroll = () => {
+      if (!formulaTicking) {
+        requestAnimationFrame(updateFormulaScroll);
+        formulaTicking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onFormulaScroll, { passive: true });
+    window.addEventListener('resize', () => {
+      updateFormulaOperatorsPosition();
+      onFormulaScroll();
+    }, { passive: true });
+
+    updateFormulaScroll();
   }
 
   /* ------------------------------------------------------------------------
