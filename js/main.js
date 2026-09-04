@@ -359,12 +359,19 @@ document.addEventListener('DOMContentLoaded', () => {
   if (talkToTeamBtn) {
     talkToTeamBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      const contactTarget = document.getElementById('contact');
-      if (contactTarget) {
-        contactTarget.scrollIntoView({ behavior: 'smooth' });
+      const isMobile = window.innerWidth <= 768;
+      const formTarget = document.getElementById('contactFormWrapper') || document.querySelector('.contact-form-outer') || document.getElementById('leadForm');
+      const contactSection = document.getElementById('contact');
+
+      const target = isMobile ? (formTarget || contactSection) : contactSection;
+      if (target) {
+        const headerHeight = document.getElementById('header')?.offsetHeight || 72;
+        const targetPos = target.getBoundingClientRect().top + window.pageYOffset - (isMobile ? (headerHeight + 12) : 0);
+        window.scrollTo({ top: targetPos, behavior: 'smooth' });
+
         setTimeout(() => {
           document.getElementById('userName')?.focus();
-        }, 500);
+        }, 600);
       }
     });
   }

@@ -1324,6 +1324,7 @@
   border-radius: var(--radius-form-outer);
   padding: 4px;
   background: var(--gradient-contact-form-outer);
+  scroll-margin-top: 90px;
 }
 
 .contact-form-glow-blur {
