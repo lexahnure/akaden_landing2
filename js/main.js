@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
      - Step 1 stays sticky at top.
      - Steps 2, 3, 4 slide up sequentially with 8px gap.
      - When all 4 are assembled, board background #F0F5FF and conic-gradient :after appear.
-     - Conic gradient rotates 720deg while multiplier counts x1 -> x100 -> x ∞.
+     - Conic gradient rotates 1080deg while multiplier counts x1 -> x100 -> x ∞.
      - Releases to normal scroll once infinity is reached.
      ------------------------------------------------------------------------ */
   const classicRunway = document.getElementById('classicRunway');
@@ -170,9 +170,9 @@ document.addEventListener('DOMContentLoaded', () => {
         classicFlowBoard.style.setProperty('--board-after-opacity', afterRounded);
       }
 
-      // --- Stage 6: Conic gradient rotates 720deg & Multiplier counts up (P: 0.51 -> 0.92) ---
+      // --- Stage 6: Conic gradient rotates 1080deg & Multiplier counts up (P: 0.51 -> 0.92) ---
       const rotProgress = Math.min(Math.max((progress - 0.51) / 0.41, 0), 1);
-      const angle = Math.round(rotProgress * 720);
+      const angle = Math.round(rotProgress * 1080);
       if (angle !== lastAngle) {
         lastAngle = angle;
         classicFlowBoard.style.setProperty('--conic-angle', `${angle}deg`);
