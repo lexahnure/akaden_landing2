@@ -106,16 +106,23 @@ document.addEventListener('DOMContentLoaded', () => {
     let lastBgOp = -1;
     let lastAfterOp = -1;
 
+    const classicSection = document.getElementById('classic-flow') || classicRunway;
+
     const updateClassicFlow = () => {
       ticking = false;
-      const rect = classicRunway.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-      const scrollableDistance = rect.height - windowHeight;
+      const secRect = classicSection.getBoundingClientRect();
+      const runwayRect = classicRunway.getBoundingClientRect();
 
-      if (scrollableDistance <= 0) return;
+      // Start progress immediately as soon as the section appears into view
+      // No waiting for the title to scroll past
+      const startPoint = windowHeight * 0.85;
+      const scrolled = startPoint - secRect.top;
+      const totalScrollable = (startPoint - secRect.top) + (runwayRect.bottom - windowHeight);
 
-      const scrolled = -rect.top;
-      const progress = Math.min(Math.max(scrolled / scrollableDistance, 0), 1);
+      if (totalScrollable <= 0) return;
+
+      const progress = Math.min(Math.max(scrolled / totalScrollable, 0), 1);
 
       // Travel distance for incoming cards
       const enterDistance = Math.min(windowHeight * 0.75, 600);
