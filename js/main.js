@@ -209,29 +209,108 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     4. Section 4: The Shift - Mobile Tabs Switcher
-        On mobile: switches between Old Workflow and New Workflow schemes
+     4. Section 4: The Shift - Mobile Sticky Runway & Scheme Switcher
+        On mobile:
+        - Shows Old Workflow when entering section
+        - Automatically switches to New Workflow as user continues scrolling
+        - Automatically switches back to Old Workflow when scrolling back up
+        - Allows user to manually tap tabs at any time to toggle schemes
         On desktop: both stand side-by-side with labels
      ------------------------------------------------------------------------ */
+  const shiftRunway = document.getElementById('shiftRunway');
+  const shiftStickyWrap = document.getElementById('shiftStickyWrap');
   const shiftTabBtns = document.querySelectorAll('.shift-tab-btn');
   const shiftCols = document.querySelectorAll('.shift-col');
 
+  let currentShiftTab = 'old';
+  let manualChosenTab = null;
+  let shiftTicking = false;
+
+  const setActiveShiftTab = (targetTab) => {
+    currentShiftTab = targetTab;
+    shiftTabBtns.forEach(btn => {
+      const isSelected = btn.getAttribute('data-tab') === targetTab;
+      btn.classList.toggle('active', isSelected);
+      btn.setAttribute('aria-selected', String(isSelected));
+    });
+    shiftCols.forEach(col => {
+      const matches = (targetTab === 'old' && col.classList.contains('shift-col-old')) ||
+                      (targetTab === 'new' && col.classList.contains('shift-col-new'));
+      col.classList.toggle('active', matches);
+    });
+  };
+
+  // Manual tab click handlers
   if (shiftTabBtns.length > 0) {
     shiftTabBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         const targetTab = btn.getAttribute('data-tab');
-        shiftTabBtns.forEach(b => {
-          const isSelected = b === btn;
-          b.classList.toggle('active', isSelected);
-          b.setAttribute('aria-selected', String(isSelected));
-        });
-        shiftCols.forEach(col => {
-          const matches = (targetTab === 'old' && col.classList.contains('shift-col-old')) ||
-                          (targetTab === 'new' && col.classList.contains('shift-col-new'));
-          col.classList.toggle('active', matches);
-        });
+        if (!targetTab) return;
+        manualChosenTab = targetTab;
+        setActiveShiftTab(targetTab);
       });
     });
+  }
+
+  // Scroll handler for auto-switching on mobile sticky runway
+  const updateShiftScroll = () => {
+    shiftTicking = false;
+    if (!shiftRunway || !shiftStickyWrap) return;
+
+    // Only auto-switch on mobile viewport
+    if (window.innerWidth > 768) {
+      manualChosenTab = null;
+      return;
+    }
+
+    const runwayRect = shiftRunway.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+
+    // Reset manual override when user completely scrolls away from section
+    if (runwayRect.bottom < 0 || runwayRect.top > windowHeight) {
+      manualChosenTab = null;
+      return;
+    }
+
+    const stickyHeight = shiftStickyWrap.offsetHeight;
+    const maxScroll = runwayRect.height - stickyHeight;
+    if (maxScroll <= 0) return;
+
+    // Sticky top matches CSS: max(74px, calc(50vh - 250px))
+    const stickyTop = Math.max(74, windowHeight * 0.5 - 250);
+    const scrolled = stickyTop - runwayRect.top;
+    const progress = Math.min(Math.max(scrolled / maxScroll, 0), 1);
+
+    if (!manualChosenTab) {
+      // Automatic threshold with hysteresis:
+      // Scrolling down past 45% -> switch to 'new'
+      // Scrolling up past 35% -> switch to 'old'
+      if (progress >= 0.45 && currentShiftTab !== 'new') {
+        setActiveShiftTab('new');
+      } else if (progress <= 0.35 && currentShiftTab !== 'old') {
+        setActiveShiftTab('old');
+      }
+    } else {
+      // Re-arm auto-switch if user scrolls opposite direction past threshold
+      if (manualChosenTab === 'old' && progress <= 0.30) {
+        manualChosenTab = null;
+      } else if (manualChosenTab === 'new' && progress >= 0.50) {
+        manualChosenTab = null;
+      }
+    }
+  };
+
+  const onShiftScroll = () => {
+    if (!shiftTicking) {
+      requestAnimationFrame(updateShiftScroll);
+      shiftTicking = true;
+    }
+  };
+
+  if (shiftRunway && shiftStickyWrap) {
+    window.addEventListener('scroll', onShiftScroll, { passive: true });
+    window.addEventListener('resize', onShiftScroll, { passive: true });
+    updateShiftScroll();
   }
 
   /* ------------------------------------------------------------------------

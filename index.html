@@ -12,9 +12,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
   
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/variables.css?v=24">
-  <link rel="stylesheet" href="css/reset.css?v=24">
-  <link rel="stylesheet" href="css/styles.css?v=24">
+  <link rel="stylesheet" href="css/variables.css?v=25">
+  <link rel="stylesheet" href="css/reset.css?v=25">
+  <link rel="stylesheet" href="css/styles.css?v=25">
 </head>
 <body>
 
@@ -172,37 +172,42 @@
           </p>
         </div>
 
-        <!-- Comparison Showcase: 2 columns on desktop, tabs on mobile -->
-        <div class="shift-showcase" id="shiftShowcase">
-          <!-- Mobile Tab Switcher (visible on mobile only) -->
-          <div class="shift-tabs-bar" role="tablist" aria-label="Workflow Comparison">
-            <button type="button" class="shift-tab-btn tab-old active" data-tab="old" role="tab" aria-selected="true" aria-controls="schemeOld">
-              <span>OLD WORKFLOW</span>
-            </button>
-            <button type="button" class="shift-tab-btn tab-new" data-tab="new" role="tab" aria-selected="false" aria-controls="schemeNew">
-              <span>NEW WORKFLOW</span>
-            </button>
-          </div>
+        <!-- Sticky Pin Runway on Mobile -->
+        <div class="shift-runway" id="shiftRunway">
+          <div class="shift-sticky-wrap" id="shiftStickyWrap">
+            <!-- Comparison Showcase: 2 columns on desktop, tabs on mobile -->
+            <div class="shift-showcase" id="shiftShowcase">
+              <!-- Mobile Tab Switcher (visible on mobile only) -->
+              <div class="shift-tabs-bar" role="tablist" aria-label="Workflow Comparison">
+                <button type="button" class="shift-tab-btn tab-old active" data-tab="old" role="tab" aria-selected="true" aria-controls="schemeOld">
+                  <span>OLD WORKFLOW</span>
+                </button>
+                <button type="button" class="shift-tab-btn tab-new" data-tab="new" role="tab" aria-selected="false" aria-controls="schemeNew">
+                  <span>NEW WORKFLOW</span>
+                </button>
+              </div>
 
-          <!-- Schemes Grid: side-by-side on desktop, switched via tabs on mobile -->
-          <div class="shift-schemes-grid">
-            <!-- Left Column: Old Workflow -->
-            <div class="shift-col shift-col-old active" id="schemeOld" role="tabpanel">
-              <div class="shift-col-badge">
-                <span class="shift-pill-badge badge-old">OLD WORKFLOW</span>
-              </div>
-              <div class="shift-card">
-                <img src="assets/scheme-old-workflow.png" alt="Old Workflow - Manual SDLC: Engineer directly connecting to systems" class="shift-scheme-img" width="993" height="1024" loading="lazy">
-              </div>
-            </div>
+              <!-- Schemes Grid: side-by-side on desktop, switched via tabs on mobile -->
+              <div class="shift-schemes-grid">
+                <!-- Left Column: Old Workflow -->
+                <div class="shift-col shift-col-old active" id="schemeOld" role="tabpanel">
+                  <div class="shift-col-badge">
+                    <span class="shift-pill-badge badge-old">OLD WORKFLOW</span>
+                  </div>
+                  <div class="shift-card">
+                    <img src="assets/scheme-old-workflow.png" alt="Old Workflow - Manual SDLC: Engineer directly connecting to systems" class="shift-scheme-img" width="993" height="1024" loading="lazy">
+                  </div>
+                </div>
 
-            <!-- Right Column: New Workflow -->
-            <div class="shift-col shift-col-new" id="schemeNew" role="tabpanel">
-              <div class="shift-col-badge">
-                <span class="shift-pill-badge badge-new">NEW WORKFLOW</span>
-              </div>
-              <div class="shift-card">
-                <img src="assets/scheme-new-workflow.png" alt="New Workflow - Agentic SDLC: Engineer supervising AI Agents connecting to systems" class="shift-scheme-img" width="993" height="1024" loading="lazy">
+                <!-- Right Column: New Workflow -->
+                <div class="shift-col shift-col-new" id="schemeNew" role="tabpanel">
+                  <div class="shift-col-badge">
+                    <span class="shift-pill-badge badge-new">NEW WORKFLOW</span>
+                  </div>
+                  <div class="shift-card">
+                    <img src="assets/scheme-new-workflow.png" alt="New Workflow - Agentic SDLC: Engineer supervising AI Agents connecting to systems" class="shift-scheme-img" width="993" height="1024" loading="lazy">
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -662,6 +667,6 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="js/main.js?v=18"></script>
+  <script src="js/main.js?v=25"></script>
 </body>
 </html>
