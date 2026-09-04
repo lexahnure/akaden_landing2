@@ -2031,4 +2031,12 @@
     padding-right: 16px;
     padding-inline: 16px;
   }
+
+  .hero-button-row {
+    width: 100%;
+  }
+
+  .hero-button-row .btn {
+    width: 100%;
+  }
 }
