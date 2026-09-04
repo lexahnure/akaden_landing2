@@ -1784,14 +1784,14 @@
     background-color: #ebecf0;
     color: #1e293b;
     border: none;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: none;
   }
 
   .shift-tab-btn.tab-new.active {
     background-color: #e1e8f5;
     color: var(--color-primary-blue);
     border: none;
-    box-shadow: 0 4px 12px rgba(0, 45, 156, 0.12);
+    box-shadow: none;
   }
 
   .shift-col-badge {
