@@ -452,13 +452,13 @@
   border-radius: 36px;
   background: conic-gradient(
     from var(--conic-angle, 0deg) at 50% 50%,
-    rgba(15, 98, 254, 0.30) 54.00000214576721deg,
-    rgba(81, 69, 229, 0.25) 125.99999785423279deg,
-    rgba(229, 46, 168, 0.11) 180deg,
-    rgba(15, 98, 254, 0.13) 233.99999141693115deg,
-    rgba(81, 69, 229, 0.10) 306.00000858306885deg,
-    rgba(229, 46, 168, 0.15) 360deg
-  ), var(--blue-A300, #ABBDE0);
+    rgba(15, 98, 254, 0.05) 54.00000214576721deg,
+    rgba(109, 69, 229, 0.35) 125.99999785423279deg,
+    rgba(229, 46, 168, 0.50) 180deg,
+    rgba(15, 98, 254, 0.05) 233.99999141693115deg,
+    rgba(109, 69, 229, 0.35) 306.00000858306885deg,
+    rgba(229, 46, 168, 0.50) 360deg
+  ), #DAE2F2;
   z-index: -1;
   opacity: var(--board-after-opacity, 0);
   transition: opacity 0.05s linear;
