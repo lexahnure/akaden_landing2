@@ -1712,6 +1712,29 @@
     transform: translateY(-8px) rotate(-45deg);
   }
 
+  /* Mobile: Section Vertical Padding 60px */
+  .section-hero {
+    padding-top: calc(var(--header-height) + 20px);
+    padding-bottom: 60px;
+    min-height: auto;
+  }
+
+  .section-classic {
+    padding-top: 60px;
+  }
+
+  .section-meanwhile,
+  .section-shift,
+  .section-what-is,
+  .section-what-does,
+  .section-why-not,
+  .section-benefits,
+  .section-contact,
+  .section-faq {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
   .hero-heading {
     font-size: 38px;
     line-height: 1.15;
