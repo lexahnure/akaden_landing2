@@ -547,6 +547,8 @@
 .section-meanwhile {
   padding: 60px 0 40px;
   background-color: var(--color-bg-slate-light);
+  position: relative;
+  isolation: isolate;
 }
 
 .meanwhile-card,
@@ -555,14 +557,13 @@
   width: 100%;
   max-width: 880px;
   margin: 0 auto;
-  background-color: var(--color-bg-white);
+  background-color: #ffffff;
   border-radius: 20px;
   padding: 32px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 1;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
 }
 
@@ -572,9 +573,19 @@
   position: absolute;
   inset: -4px;
   border-radius: 24px;
+  padding: 4px;
   background: var(--gradient-meanwhile-outer);
-  z-index: -1;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
   pointer-events: none;
+  z-index: 0;
+}
+
+.meanwhile-card > * {
+  position: relative;
+  z-index: 1;
 }
 
 .meanwhile-tag {
@@ -1640,6 +1651,7 @@
   .meanwhile-inner-card::after {
     inset: -4px;
     border-radius: 24px;
+    padding: 4px;
   }
 
   /* Section 4: The Shift on mobile - Tabs Switcher */
