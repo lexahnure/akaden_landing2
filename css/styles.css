@@ -595,7 +595,7 @@
     height: 320vh;
   }
   .classic-sticky-container {
-    top: max(56px, calc(50vh - 280px));
+    top: max(74px, calc(50vh - 340px));
   }
   .classic-flow-board {
     border-radius: 24px;
