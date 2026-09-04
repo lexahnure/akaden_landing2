@@ -2017,9 +2017,9 @@
 }
 
 /* --------------------------------------------------------------------------
-   Small Mobile Devices (Viewport < 400px)
+   Small Mobile Devices (Viewport <= 480px)
    -------------------------------------------------------------------------- */
-@media (max-width: 400px) {
+@media (max-width: 480px) {
   .container {
     padding-left: 16px;
     padding-right: 16px;
