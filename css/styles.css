@@ -1822,6 +1822,13 @@
     line-height: 120%;
   }
 
+  /* Mobile: H3 headings decreased to 26px */
+  h3,
+  .scenario-title {
+    font-size: 26px;
+    line-height: 130%;
+  }
+
   /* Mobile: Base font and line-height in sections changed from 18px / 27px to 16px / 24px */
   .section-subtitle,
   .hero-subtext,
