@@ -458,7 +458,7 @@
     rgba(15, 98, 254, 0.05) 233.99999141693115deg,
     rgba(109, 69, 229, 0.35) 306.00000858306885deg,
     rgba(229, 46, 168, 0.50) 360deg
-  ), #DAE2F2;
+  ), var(--blue-100, #F0F5FF);
   z-index: -1;
   opacity: var(--board-after-opacity, 0);
   transition: opacity 0.05s linear;
